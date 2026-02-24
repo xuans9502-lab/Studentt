@@ -1,0 +1,1371 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CÀY CHUỖI · KẾT BẠN · LỬA TÍM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #030514;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #1a0f2a 0%, #030514 90%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffd966" opacity="0.3"/><circle cx="20" cy="30" r="1" fill="%23ff5e9e" opacity="0.3"/><circle cx="80" cy="70" r="1" fill="%239d4eff" opacity="0.3"/></svg>');
+            animation: stars 20s linear infinite;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 100px 100px; }
+        }
+
+        .phone {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(20, 10, 40, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 60px;
+            padding: 24px 18px;
+            box-shadow: 0 30px 50px #000000, 0 0 0 3px #ffd96680, 0 0 50px #9d4eff;
+            border: 2px solid #9d4eff;
+            color: #fff5e6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), rgba(157, 78, 255, 0.1), transparent);
+            animation: shine 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* header */
+        .top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            background: rgba(157, 78, 255, 0.2);
+            padding: 16px;
+            border-radius: 60px;
+            border: 2px solid #9d4eff;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, gold, #ffae42, #9d4eff);
+            border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 8px 30px #9d4eff;
+            border: 3px solid white;
+            animation: avatarGlow 3s infinite;
+        }
+
+        @keyframes avatarGlow {
+            0%, 100% { box-shadow: 0 8px 30px #9d4eff; }
+            50% { box-shadow: 0 8px 50px #ff5e9e; }
+        }
+
+        .name h1 {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(to right, #fff, #ffd966, #9d4eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px #9d4eff;
+        }
+
+        .name .class {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 6px 18px;
+            font-size: 14px;
+            border: 2px solid #9d4eff;
+            width: fit-content;
+            margin-top: 8px;
+            font-weight: 700;
+            color: #ffd966;
+        }
+
+        /* Tab chuyển đổi Đăng ký / Đăng nhập */
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            background: rgba(30, 15, 50, 0.7);
+            border: 2px solid #9d4eff;
+            border-radius: 40px;
+            padding: 16px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 900;
+            color: #b0c0ff;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .auth-tab.active {
+            background: #9d4eff;
+            color: white;
+            box-shadow: 0 0 30px #9d4eff;
+            border-color: gold;
+        }
+
+        /* Form đăng ký / đăng nhập */
+        .auth-section {
+            background: rgba(30, 15, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 22px;
+            margin-bottom: 20px;
+            border: 3px solid #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .auth-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #9d4eff;
+            text-shadow: 0 0 20px #9d4eff;
+        }
+
+        .auth-box {
+            background: #1a0f2a;
+            border-radius: 40px;
+            padding: 30px;
+            border: 3px solid #9d4eff;
+            text-align: center;
+        }
+
+        .auth-box input {
+            width: 100%;
+            background: #2a1f4a;
+            border: 3px solid #9d4eff;
+            border-radius: 60px;
+            padding: 16px 20px;
+            font-size: 18px;
+            color: white;
+            outline: none;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .auth-box input:focus {
+            border-color: gold;
+            box-shadow: 0 0 30px gold;
+        }
+
+        .btn {
+            background: linear-gradient(145deg, gold, #ffae42);
+            border: none;
+            border-radius: 60px;
+            padding: 16px 28px;
+            font-size: 18px;
+            font-weight: 900;
+            color: #0a0c18;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #b26f00, 0 0 20px gold;
+            transition: 0.1s;
+            border: 2px solid white;
+            width: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #b26f00, 0 0 30px gold;
+        }
+
+        .btn.purple {
+            background: linear-gradient(145deg, #9d4eff, #6b2fbf);
+            box-shadow: 0 8px 0 #4a1f8a, 0 0 20px #9d4eff;
+        }
+
+        /* MAIN APP */
+        #mainApp {
+            display: none;
+        }
+
+        /* Khu vực bạn bè */
+        .friends-section {
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid #ff5e9e;
+            box-shadow: 0 0 30px #ff5e9e;
+        }
+
+        .friends-title {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #ff9ec0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .friend-search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .friend-search input {
+            flex: 1;
+            background: #2a1f4a;
+            border: 3px solid #ff5e9e;
+            border-radius: 60px;
+            padding: 12px 16px;
+            font-size: 16px;
+            color: white;
+            outline: none;
+        }
+
+        .friend-search button {
+            background: linear-gradient(145deg, #ff5e9e, #ff2e7a);
+            border: none;
+            border-radius: 60px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #a01a4a;
+            border: 2px solid white;
+        }
+
+        .friend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .friend-item {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid #ff5e9e;
+        }
+
+        .friend-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .friend-name {
+            font-weight: 700;
+            color: gold;
+        }
+
+        .friend-streak {
+            font-size: 14px;
+            color: #ff9ec0;
+        }
+
+        .friend-actions button {
+            background: #9d4eff;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        .search-result {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 16px;
+            margin-top: 10px;
+            text-align: center;
+            border: 2px solid #ff5e9e;
+        }
+
+        /* Thông tin user */
+        .user-stats {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 16px;
+            margin: 10px 0;
+            border: 2px solid #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: gold;
+            text-shadow: 0 0 20px gold;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #ff9ec0;
+        }
+
+        /* Rank bar */
+        .rank-bar {
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 60px;
+            padding: 16px;
+            margin: 15px 0;
+            border: 3px solid #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .rank-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .rank-name {
+            font-size: 22px;
+            font-weight: 900;
+            color: gold;
+            text-shadow: 0 0 20px gold;
+        }
+
+        .exp-bar {
+            width: 100%;
+            height: 20px;
+            background: #1a0f2a;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid #9d4eff;
+        }
+
+        .exp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffae42, gold, #9d4eff);
+            width: 0%;
+            transition: width 0.3s;
+            box-shadow: 0 0 20px #9d4eff;
+        }
+
+        /* streak và tên */
+        .streak-name {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border: 3px solid #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .user-name-display {
+            font-size: 26px;
+            font-weight: 900;
+            color: gold;
+            text-shadow: 0 0 20px gold;
+        }
+
+        .current-streak {
+            font-size: 26px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .fire-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 20px #ff8c42);
+            transition: all 0.3s;
+        }
+
+        .fire-icon.purple {
+            filter: drop-shadow(0 0 30px #9d4eff);
+            color: #b87cff;
+        }
+
+        /* milestone */
+        .milestone-box {
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 22px;
+            border-left: 12px solid #9d4eff;
+            min-height: 140px;
+            margin: 20px 0;
+            border: 3px solid #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .gift {
+            text-align: center;
+        }
+
+        .gift-emoji {
+            font-size: 48px;
+            filter: drop-shadow(0 0 20px gold);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gift-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffdb9f;
+            margin: 10px 0;
+        }
+
+        .gift-reward {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 18px;
+        }
+
+        .locked {
+            text-align: center;
+            color: #b0c0ff;
+            font-size: 18px;
+            padding: 30px;
+        }
+
+        /* SHOP */
+        .shop-section {
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 20px 0;
+            border: 3px solid #ff5e9e;
+            box-shadow: 0 0 30px #ff5e9e;
+        }
+
+        .shop-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: #ff9ec0;
+            text-shadow: 0 0 20px #ff5e9e;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .shop-item {
+            background: #2a1f4a;
+            border-radius: 30px;
+            padding: 16px 8px;
+            text-align: center;
+            border: 2px solid #ff5e9e;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 5px 0 #4a1f4a;
+        }
+
+        .shop-item:hover {
+            transform: scale(1.05);
+            border-color: gold;
+            box-shadow: 0 0 30px gold;
+        }
+
+        .shop-item-emoji {
+            font-size: 32px;
+        }
+
+        .shop-item-name {
+            font-size: 14px;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+
+        .shop-item-price {
+            color: gold;
+            font-weight: 900;
+        }
+
+        /* 4 môn */
+        .section-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin: 20px 0 15px;
+            color: #9d4eff;
+            text-shadow: 0 0 20px #9d4eff;
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .subject {
+            background: linear-gradient(145deg, #1f1f4a, #12123f);
+            border-radius: 50px;
+            padding: 26px 8px;
+            text-align: center;
+            box-shadow: 0 12px 0 #0a0a20;
+            cursor: pointer;
+            border: 4px solid transparent;
+            transition: 0.2s;
+        }
+
+        .subject.done {
+            background: linear-gradient(145deg, #3f3f90, #2f2f80);
+            border-color: #9d4eff;
+            box-shadow: 0 12px 0 #4a1f8a, 0 0 30px #9d4eff;
+            transform: translateY(-3px);
+        }
+
+        .subject-emoji {
+            font-size: 56px;
+        }
+
+        .subject-name {
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1f1f4a;
+            padding: 18px 22px;
+            border-radius: 60px;
+            margin-bottom: 14px;
+            border-left: 10px solid transparent;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 3px solid #4e4e9e;
+        }
+
+        .task:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .task.done {
+            border-left-color: #9d4eff;
+            background: #2f2f6a;
+            border-color: #9d4eff;
+            box-shadow: 0 0 30px #9d4eff;
+        }
+
+        .task-left {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .check {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0a0a20;
+            border: 4px solid #9d4eff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .done .check {
+            background: #9d4eff;
+            color: black;
+        }
+
+        .warning {
+            background: #4a1e2e;
+            border-radius: 40px;
+            padding: 18px;
+            margin-top: 25px;
+            border-left: 12px solid #ff6b6b;
+            font-size: 18px;
+            color: #ffc3c3;
+            font-weight: 700;
+            border: 3px solid red;
+            animation: warningPulse 2s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { box-shadow: 0 0 20px red; }
+            50% { box-shadow: 0 0 40px #ff6b6b; }
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #b0c0ff;
+            font-style: italic;
+            text-shadow: 0 0 10px #9d4eff;
+        }
+
+        .logout-btn {
+            background: #4a1e4a;
+            border: 2px solid #ff5e9e;
+            color: white;
+            padding: 10px;
+            border-radius: 40px;
+            margin: 10px 0;
+            cursor: pointer;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <!-- header -->
+        <div class="top">
+            <div class="avatar">👑</div>
+            <div class="name">
+                <h1>CÀY CHUỖI</h1>
+                <div class="class">VIP · KẾT BẠN · LỬA TÍM</div>
+            </div>
+        </div>
+
+        <!-- Tab chuyển đổi -->
+        <div class="auth-tabs" id="authTabs">
+            <div class="auth-tab active" id="registerTab">📝 ĐĂNG KÝ</div>
+            <div class="auth-tab" id="loginTab">🔑 ĐĂNG NHẬP</div>
+        </div>
+
+        <!-- Form ĐĂNG KÝ -->
+        <div class="auth-section" id="registerSection">
+            <div class="auth-title">🔰 TẠO TÀI KHOẢN MỚI</div>
+            <div class="auth-box">
+                <input type="text" id="regUsername" placeholder="Tên tài khoản..." maxlength="20">
+                <input type="password" id="regPassword" placeholder="Mật khẩu...">
+                <input type="password" id="regConfirmPassword" placeholder="Nhập lại mật khẩu...">
+                <button class="btn purple" id="registerBtn">🔰 ĐĂNG KÝ</button>
+            </div>
+        </div>
+
+        <!-- Form ĐĂNG NHẬP -->
+        <div class="auth-section" id="loginSection" style="display: none;">
+            <div class="auth-title">🔑 ĐĂNG NHẬP</div>
+            <div class="auth-box">
+                <input type="text" id="loginUsername" placeholder="Tên tài khoản...">
+                <input type="password" id="loginPassword" placeholder="Mật khẩu...">
+                <button class="btn purple" id="loginBtn">🔑 ĐĂNG NHẬP</button>
+            </div>
+        </div>
+
+        <!-- MAIN APP -->
+        <div id="mainApp">
+            <!-- Nút đăng xuất -->
+            <div class="logout-btn" id="logoutBtn">🚪 ĐĂNG XUẤT</div>
+
+            <!-- KHU VỰC KẾT BẠN -->
+            <div class="friends-section">
+                <div class="friends-title">
+                    <span>👥</span> KẾT BẠN CÙNG CÀY
+                </div>
+                <div class="friend-search">
+                    <input type="text" id="searchFriendInput" placeholder="Nhập tên bạn bè...">
+                    <button id="searchFriendBtn">🔍 TÌM</button>
+                </div>
+                <div class="search-result" id="searchFriendResult">
+                    🔍 Nhập tên để tìm kiếm bạn bè
+                </div>
+                <div class="friends-title" style="margin-top: 15px;">
+                    <span>📋</span> DANH SÁCH BẠN BÈ
+                </div>
+                <div class="friend-list" id="friendListContainer">
+                    <!-- Danh sách bạn bè sẽ được render ở đây -->
+                </div>
+            </div>
+
+            <!-- Tên và streak với hiệu ứng lửa tím -->
+            <div class="streak-name">
+                <span class="user-name-display" id="userNameDisplay">---</span>
+                <div class="current-streak">
+                    <span id="streakNum">0</span>
+                    <span class="fire-icon" id="fireIcon">🔥</span>
+                </div>
+            </div>
+
+            <!-- Thông số -->
+            <div class="user-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="diamondNum">50</div>
+                    <div class="stat-label">💎 KIM CƯƠNG</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="expNum">0</div>
+                    <div class="stat-label">✨ EXP</div>
+                </div>
+            </div>
+
+            <!-- Rank & EXP -->
+            <div class="rank-bar">
+                <div class="rank-info">
+                    <span class="rank-name" id="rankName">Gỗ</span>
+                    <span id="expDisplay">0/100 EXP</span>
+                </div>
+                <div class="exp-bar">
+                    <div class="exp-fill" id="expBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- QUÀ TẶNG KHI ĐẠT MỐC -->
+            <div class="milestone-box" id="milestoneBox">
+                <div class="locked">🔒 Đạt streak để nhận quà</div>
+            </div>
+
+            <!-- SHOP VIP -->
+            <div class="shop-section">
+                <div class="shop-title">🛒 SHOP KIM CƯƠNG</div>
+                <div class="shop-grid">
+                    <div class="shop-item" data-item="exp" data-price="20">
+                        <div class="shop-item-emoji">✨</div>
+                        <div class="shop-item-name">20 EXP</div>
+                        <div class="shop-item-price">💎20</div>
+                    </div>
+                    <div class="shop-item" data-item="theme" data-price="50">
+                        <div class="shop-item-emoji">🎨</div>
+                        <div class="shop-item-name">Theme VIP</div>
+                        <div class="shop-item-price">💎50</div>
+                    </div>
+                    <div class="shop-item" data-item="boost" data-price="30">
+                        <div class="shop-item-emoji">⚡</div>
+                        <div class="shop-item-name">Boost Streak</div>
+                        <div class="shop-item-price">💎30</div>
+                    </div>
+                    <div class="shop-item" data-item="pet" data-price="100">
+                        <div class="shop-item-emoji">🐉</div>
+                        <div class="shop-item-name">Thú cưng</div>
+                        <div class="shop-item-price">💎100</div>
+                    </div>
+                    <div class="shop-item" data-item="badge" data-price="150">
+                        <div class="shop-item-emoji">🏆</div>
+                        <div class="shop-item-name">Huy hiệu</div>
+                        <div class="shop-item-price">💎150</div>
+                    </div>
+                    <div class="shop-item" data-item="purplefire" data-price="300">
+                        <div class="shop-item-emoji">🔥</div>
+                        <div class="shop-item-name">Lửa Tím</div>
+                        <div class="shop-item-price">💎300</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 MÔN HỌC -->
+            <div class="section-title">📚 HÔM NAY</div>
+            <div class="subject-grid" id="subjectGrid">
+                <div class="subject" data-subj="toan">
+                    <div class="subject-emoji">🧮</div>
+                    <div class="subject-name">Toán</div>
+                </div>
+                <div class="subject" data-subj="van">
+                    <div class="subject-emoji">📖</div>
+                    <div class="subject-name">Văn</div>
+                </div>
+                <div class="subject" data-subj="anh">
+                    <div class="subject-emoji">🇬🇧</div>
+                    <div class="subject-name">Anh</div>
+                </div>
+                <div class="subject" data-subj="khtn">
+                    <div class="subject-emoji">🔬</div>
+                    <div class="subject-name">KHTN</div>
+                </div>
+            </div>
+
+            <!-- DANH SÁCH TASK -->
+            <div id="taskList"></div>
+
+            <!-- CẢNH BÁO -->
+            <div class="warning" id="warningMsg">
+                ⚠️ Hoàn thành đủ 4 môn để +1 streak
+            </div>
+
+            <div class="footer-note">
+                ✨ Mốc 50: Lửa tím | Mốc 100: 5000 EXP + 5000💎
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // DỮ LIỆU
+            let accounts = {};
+            let currentUser = null;
+
+            // RANK và EXP
+            const rankThresholds = [
+                { name: '🪵 Gỗ', exp: 0 },
+                { name: '🌱 Sắt', exp: 100 },
+                { name: '🥉 Đồng', exp: 300 },
+                { name: '🥈 Bạc', exp: 600 },
+                { name: '🥇 Vàng', exp: 1000 },
+                { name: '💎 Kim cương', exp: 1500 },
+                { name: '👑 Cao thủ', exp: 2500 },
+                { name: '🔥 Huyền thoại', exp: 4000 },
+                { name: '🪐 Thần thánh', exp: 6000 },
+                { name: '💜 Lửa tím', exp: 10000 },
+                { name: '⚡ Huyền thoại vĩnh cửu', exp: 15000 }
+            ];
+
+            // QUÀ THEO STREAK
+            const streakRewards = [
+                { day: 2, exp: 20, diamonds: 5, emoji: '🎮', name: 'Game thủ' },
+                { day: 3, exp: 30, diamonds: 8, emoji: '🍦', name: 'Kem ngọt' },
+                { day: 5, exp: 50, diamonds: 15, emoji: '🍿', name: 'Bắp rang' },
+                { day: 7, exp: 70, diamonds: 25, emoji: '🧋', name: 'Trà sữa' },
+                { day: 10, exp: 100, diamonds: 40, emoji: '🍔', name: 'Gà rán' },
+                { day: 15, exp: 150, diamonds: 70, emoji: '🎁', name: 'Hộp quà' },
+                { day: 20, exp: 200, diamonds: 100, emoji: '🧸', name: 'Gấu bông' },
+                { day: 25, exp: 250, diamonds: 150, emoji: '🎮', name: 'Tay cầm' },
+                { day: 30, exp: 300, diamonds: 200, emoji: '💰', name: 'Kho báu' },
+                { day: 40, exp: 400, diamonds: 300, emoji: '👟', name: 'Giày' },
+                { day: 50, exp: 500, diamonds: 500, emoji: '🔥', name: 'Lửa tím', special: 'purplefire' },
+                { day: 60, exp: 600, diamonds: 700, emoji: '📱', name: 'Điện thoại' },
+                { day: 70, exp: 700, diamonds: 900, emoji: '🧥', name: 'Áo' },
+                { day: 80, exp: 800, diamonds: 1200, emoji: '🎂', name: 'Sinh nhật' },
+                { day: 90, exp: 900, diamonds: 1500, emoji: '🕶️', name: 'Kính' },
+                { day: 100, exp: 5000, diamonds: 5000, emoji: '💜', name: 'ĐẠI TIỆC LỬA TÍM' }
+            ];
+
+            function createNewAccount(name, password) {
+                return {
+                    name: name,
+                    password: password,
+                    streak: 0,
+                    exp: 0,
+                    diamonds: 50,
+                    subjects: { toan: false, van: false, anh: false, khtn: false },
+                    lastDate: new Date().toDateString(),
+                    todayCompleted: false,
+                    inventory: [],
+                    purpleFire: false,
+                    friends: [] // Danh sách bạn bè
+                };
+            }
+
+            function getRank(exp) {
+                for (let i = rankThresholds.length - 1; i >= 0; i--) {
+                    if (exp >= rankThresholds[i].exp) return rankThresholds[i].name;
+                }
+                return '🪵 Gỗ';
+            }
+
+            function getNextRankExp(exp) {
+                for (let i = 0; i < rankThresholds.length; i++) {
+                    if (exp < rankThresholds[i].exp) return rankThresholds[i].exp;
+                }
+                return rankThresholds[rankThresholds.length - 1].exp;
+            }
+
+            // DOM
+            const authTabs = document.getElementById('authTabs');
+            const registerTab = document.getElementById('registerTab');
+            const loginTab = document.getElementById('loginTab');
+            const registerSection = document.getElementById('registerSection');
+            const loginSection = document.getElementById('loginSection');
+            const mainApp = document.getElementById('mainApp');
+            
+            // Register
+            const regUsername = document.getElementById('regUsername');
+            const regPassword = document.getElementById('regPassword');
+            const regConfirmPassword = document.getElementById('regConfirmPassword');
+            const registerBtn = document.getElementById('registerBtn');
+            
+            // Login
+            const loginUsername = document.getElementById('loginUsername');
+            const loginPassword = document.getElementById('loginPassword');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Friend
+            const searchFriendInput = document.getElementById('searchFriendInput');
+            const searchFriendBtn = document.getElementById('searchFriendBtn');
+            const searchFriendResult = document.getElementById('searchFriendResult');
+            const friendListContainer = document.getElementById('friendListContainer');
+            
+            // Main
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            const streakNum = document.getElementById('streakNum');
+            const fireIcon = document.getElementById('fireIcon');
+            const diamondNum = document.getElementById('diamondNum');
+            const expNum = document.getElementById('expNum');
+            const rankName = document.getElementById('rankName');
+            const expDisplay = document.getElementById('expDisplay');
+            const expBar = document.getElementById('expBar');
+            const milestoneBox = document.getElementById('milestoneBox');
+            const taskList = document.getElementById('taskList');
+            const warningMsg = document.getElementById('warningMsg');
+            const subjectItems = document.querySelectorAll('.subject');
+
+            // Load dữ liệu từ localStorage
+            const savedAccounts = localStorage.getItem('accounts');
+            if (savedAccounts) {
+                accounts = JSON.parse(savedAccounts);
+            }
+
+            // Tab chuyển đổi
+            registerTab.addEventListener('click', () => {
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                registerSection.style.display = 'block';
+                loginSection.style.display = 'none';
+            });
+
+            loginTab.addEventListener('click', () => {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginSection.style.display = 'block';
+                registerSection.style.display = 'none';
+            });
+
+            // ĐĂNG KÝ
+            registerBtn.addEventListener('click', () => {
+                const name = regUsername.value.trim();
+                const pwd = regPassword.value;
+                const confirm = regConfirmPassword.value;
+
+                if (!name || name.length < 3) {
+                    alert('Tên phải có ít nhất 3 ký tự');
+                    return;
+                }
+                if (!pwd || pwd.length < 3) {
+                    alert('Mật khẩu phải có ít nhất 3 ký tự');
+                    return;
+                }
+                if (pwd !== confirm) {
+                    alert('Mật khẩu không khớp');
+                    return;
+                }
+                if (accounts[name]) {
+                    alert('Tên này đã tồn tại!');
+                    return;
+                }
+                
+                accounts[name] = createNewAccount(name, pwd);
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                
+                alert('Đăng ký thành công! Mời bạn đăng nhập');
+                
+                // Chuyển sang tab đăng nhập
+                loginTab.click();
+                
+                // Xóa form đăng ký
+                regUsername.value = '';
+                regPassword.value = '';
+                regConfirmPassword.value = '';
+            });
+
+            // ĐĂNG NHẬP
+            loginBtn.addEventListener('click', () => {
+                const name = loginUsername.value.trim();
+                const pwd = loginPassword.value;
+
+                if (!accounts[name]) {
+                    alert('Tài khoản không tồn tại');
+                    return;
+                }
+                if (accounts[name].password !== pwd) {
+                    alert('Sai mật khẩu');
+                    return;
+                }
+
+                currentUser = name;
+                
+                // Ẩn các phần auth
+                authTabs.style.display = 'none';
+                registerSection.style.display = 'none';
+                loginSection.style.display = 'none';
+                
+                // Hiện main app
+                mainApp.style.display = 'block';
+                
+                userNameDisplay.textContent = name;
+                
+                // Kiểm tra lửa tím
+                if (accounts[name].inventory.includes('purplefire') || accounts[name].streak >= 50) {
+                    accounts[name].purpleFire = true;
+                    fireIcon.classList.add('purple');
+                }
+                
+                // Cập nhật danh sách bạn bè
+                updateFriendList();
+                updateUI();
+            });
+
+            // ĐĂNG XUẤT
+            logoutBtn.addEventListener('click', () => {
+                currentUser = null;
+                
+                // Hiện lại phần auth
+                authTabs.style.display = 'flex';
+                registerSection.style.display = 'block';
+                loginSection.style.display = 'none';
+                
+                // Ẩn main app
+                mainApp.style.display = 'none';
+                
+                // Reset active tab
+                registerTab.classList.add('active');
+                loginTab.classList.remove('active');
+                
+                // Xóa form login
+                loginUsername.value = '';
+                loginPassword.value = '';
+            });
+
+            // TÌM KIẾM BẠN BÈ
+            searchFriendBtn.addEventListener('click', () => {
+                const searchName = searchFriendInput.value.trim();
+                
+                if (!searchName) {
+                    searchFriendResult.innerHTML = '❌ Vui lòng nhập tên cần tìm';
+                    return;
+                }
+                
+                if (!accounts[searchName]) {
+                    searchFriendResult.innerHTML = '❌ Không tìm thấy tài khoản này';
+                    return;
+                }
+                
+                if (searchName === currentUser) {
+                    searchFriendResult.innerHTML = '❌ Không thể kết bạn với chính mình';
+                    return;
+                }
+                
+                const user = accounts[currentUser];
+                if (user.friends.includes(searchName)) {
+                    searchFriendResult.innerHTML = '✅ Đã là bạn bè rồi';
+                    return;
+                }
+                
+                searchFriendResult.innerHTML = `
+                    ✅ Tìm thấy: ${searchName}<br>
+                    Streak: ${accounts[searchName].streak} ngày<br>
+                    Rank: ${getRank(accounts[searchName].exp)}<br>
+                    <button class="btn purple" style="margin-top: 10px; padding: 8px;" onclick="addFriend('${searchName}')">➕ KẾT BẠN</button>
+                `;
+            });
+
+            // Hàm thêm bạn bè (để global cho onclick)
+            window.addFriend = function(friendName) {
+                const user = accounts[currentUser];
+                if (!user.friends.includes(friendName)) {
+                    user.friends.push(friendName);
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                    searchFriendResult.innerHTML = `✅ Đã kết bạn với ${friendName}`;
+                    searchFriendInput.value = '';
+                    updateFriendList();
+                }
+            };
+
+            // Cập nhật danh sách bạn bè
+            function updateFriendList() {
+                const user = accounts[currentUser];
+                if (!user) return;
+                
+                if (user.friends.length === 0) {
+                    friendListContainer.innerHTML = '<div style="text-align: center; padding: 20px;">👥 Chưa có bạn bè</div>';
+                    return;
+                }
+                
+                let html = '';
+                user.friends.forEach(friend => {
+                    const friendData = accounts[friend];
+                    if (friendData) {
+                        html += `
+                            <div class="friend-item">
+                                <div class="friend-info">
+                                    <span class="friend-name">${friend}</span>
+                                    <span class="friend-streak">🔥 ${friendData.streak} ngày</span>
+                                </div>
+                                <div class="friend-actions">
+                                    <button onclick="viewFriend('${friend}')">👁️ Xem</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                friendListContainer.innerHTML = html;
+            }
+
+            // Xem thông tin bạn bè
+            window.viewFriend = function(friendName) {
+                const friend = accounts[friendName];
+                alert(`👤 ${friendName}\n🔥 Streak: ${friend.streak}\n✨ EXP: ${friend.exp}\n💎 Kim cương: ${friend.diamonds}\n🏆 Rank: ${getRank(friend.exp)}`);
+            };
+
+            // SHOP
+            document.querySelectorAll('.shop-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (!currentUser) return;
+                    
+                    const user = accounts[currentUser];
+                    const price = parseInt(item.dataset.price);
+                    const itemName = item.dataset.item;
+                    
+                    if (user.diamonds >= price) {
+                        user.diamonds -= price;
+                        user.inventory.push(itemName);
+                        
+                        if (itemName === 'exp') {
+                            user.exp += 20;
+                            alert('✨ +20 EXP');
+                        } else if (itemName === 'boost') {
+                            user.streak += 1;
+                            alert('⚡ Boost +1 streak');
+                        } else if (itemName === 'purplefire') {
+                            user.purpleFire = true;
+                            fireIcon.classList.add('purple');
+                            alert('🔥 Đã mở khóa LỬA TÍM vĩnh viễn');
+                        } else {
+                            alert(`✅ Mua thành công! Còn lại ${user.diamonds} 💎`);
+                        }
+                        
+                        localStorage.setItem('accounts', JSON.stringify(accounts));
+                        updateUI();
+                    } else {
+                        alert('❌ Không đủ kim cương!');
+                    }
+                });
+            });
+
+            // RENDER TASKS
+            function renderTasks(user) {
+                const tasks = [
+                    { key: 'toan', name: 'Toán', emoji: '🧮' },
+                    { key: 'van', name: 'Văn', emoji: '📖' },
+                    { key: 'anh', name: 'Anh', emoji: '🇬🇧' },
+                    { key: 'khtn', name: 'KHTN', emoji: '🔬' }
+                ];
+
+                let html = '';
+                tasks.forEach(t => {
+                    const isDone = user.subjects[t.key];
+                    html += `
+                        <div class="task ${isDone ? 'done' : ''}" data-key="${t.key}">
+                            <div class="task-left">
+                                <span class="check">${isDone ? '✓' : ''}</span>
+                                <span style="font-size: 22px;">${t.emoji} ${t.name}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                taskList.innerHTML = html;
+
+                document.querySelectorAll('.task').forEach(task => {
+                    task.addEventListener('click', function() {
+                        if (!currentUser) return;
+                        
+                        const key = this.dataset.key;
+                        const user = accounts[currentUser];
+                        
+                        user.subjects[key] = !user.subjects[key];
+                        
+                        checkAndUpdateStreak(user);
+                        updateUI();
+                    });
+                });
+            }
+
+            // KIỂM TRA STREAK
+            function checkAndUpdateStreak(user) {
+                const today = new Date().toDateString();
+                
+                if (user.lastDate !== today) {
+                    if (!(user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn)) {
+                        user.streak = 0;
+                    }
+                    user.subjects = { toan: false, van: false, anh: false, khtn: false };
+                    user.todayCompleted = false;
+                    user.lastDate = today;
+                }
+
+                const allDone = user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn;
+                
+                if (allDone && !user.todayCompleted) {
+                    user.streak += 1;
+                    user.todayCompleted = true;
+                    
+                    user.exp += 10;
+                    user.diamonds += 5;
+                    
+                    // Kiểm tra quà theo streak
+                    streakRewards.forEach(reward => {
+                        if (user.streak === reward.day) {
+                            user.exp += reward.exp;
+                            user.diamonds += reward.diamonds;
+                            
+                            if (reward.special === 'purplefire') {
+                                user.purpleFire = true;
+                                fireIcon.classList.add('purple');
+                            }
+                            
+                            alert(`🎉 ĐẠT MỐC ${reward.day} NGÀY!\nNhận: ${reward.exp} EXP + ${reward.diamonds} 💎`);
+                        }
+                    });
+                    
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                }
+            }
+
+            // UPDATE UI
+            function updateUI() {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                
+                streakNum.textContent = user.streak;
+                diamondNum.textContent = user.diamonds;
+                expNum.textContent = user.exp;
+                
+                // Hiệu ứng lửa tím
+                if (user.purpleFire || user.streak >= 50) {
+                    fireIcon.classList.add('purple');
+                } else {
+                    fireIcon.classList.remove('purple');
+                }
+                
+                // Rank
+                const currentRank = getRank(user.exp);
+                const nextExp = getNextRankExp(user.exp);
+                const prevExp = rankThresholds.find(r => r.name === currentRank)?.exp || 0;
+                const expNeeded = nextExp - prevExp;
+                const expCurrent = user.exp - prevExp;
+                const percent = Math.min(100, (expCurrent / expNeeded) * 100);
+                
+                rankName.textContent = currentRank;
+                expDisplay.textContent = `${user.exp}/${nextExp} EXP`;
+                expBar.style.width = percent + '%';
+                
+                // Highlight subject
+                subjectItems.forEach(item => {
+                    const subj = item.dataset.subj;
+                    if (user.subjects[subj]) {
+                        item.classList.add('done');
+                    } else {
+                        item.classList.remove('done');
+                    }
+                });
+                
+                // Hiển thị quà streak
+                const achieved = streakRewards.filter(r => r.day <= user.streak).pop();
+                if (achieved) {
+                    milestoneBox.innerHTML = `
+                        <div class="gift">
+                            <div class="gift-emoji">${achieved.emoji}</div>
+                            <div class="gift-text">Mốc ${achieved.day}: ${achieved.name}</div>
+                            <div class="gift-reward">
+                                <span>✨ +${achieved.exp} EXP</span>
+                                <span>💎 +${achieved.diamonds}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    milestoneBox.innerHTML = `<div class="locked">🔒 Đạt 2 ngày để nhận quà</div>`;
+                }
+                
+                // Warning
+                const allDone = user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn;
+                if (!allDone) {
+                    warningMsg.innerHTML = `⚠️ Hoàn thành đủ 4 môn hôm nay để +1 streak`;
+                } else {
+                    warningMsg.innerHTML = `✅ ĐÃ ĐỦ 4 MÔN! Ngày mai +1 streak`;
+                }
+                
+                renderTasks(user);
+            }
+
+            // AUTO CHECK
+            setInterval(() => {
+                if (currentUser) {
+                    const user = accounts[currentUser];
+                    const today = new Date().toDateString();
+                    
+                    if (user.lastDate !== today) {
+                        if (!(user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn)) {
+                            user.streak = 0;
+                        }
+                        user.subjects = { toan: false, van: false, anh: false, khtn: false };
+                        user.todayCompleted = false;
+                        user.lastDate = today;
+                        
+                        localStorage.setItem('accounts', JSON.stringify(accounts));
+                    }
+                    
+                    updateUI();
+                }
+            }, 1000);
+        })();
+    </script>
+</body>
+</html>

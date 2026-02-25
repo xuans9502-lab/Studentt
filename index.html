@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CÀY CHUỖI · KẾT BẠN · LỬA TÍM · CHAT</title>
+    <title>CÀY CHUỖI · KẾT BẠN · LỬA TÍM · PET HUYỀN THOẠI</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
         }
 
         body {
@@ -197,6 +197,11 @@
             box-shadow: 0 0 30px gold;
         }
 
+        .auth-box input::placeholder {
+            color: #b0c0ff;
+            opacity: 0.7;
+        }
+
         .btn {
             background: linear-gradient(145deg, gold, #ffae42);
             border: none;
@@ -241,21 +246,23 @@
         /* Navigation */
         .nav-tabs {
             display: flex;
-            gap: 10px;
+            gap: 5px;
             margin: 15px 0;
             background: rgba(30, 15, 50, 0.5);
             padding: 10px;
             border-radius: 60px;
             border: 2px solid #9d4eff;
+            flex-wrap: wrap;
         }
 
         .nav-tab {
             flex: 1;
             text-align: center;
-            padding: 12px;
+            padding: 10px 5px;
             border-radius: 40px;
             cursor: pointer;
             font-weight: 700;
+            font-size: 13px;
             transition: 0.3s;
             color: #b0c0ff;
         }
@@ -275,319 +282,31 @@
             display: block;
         }
 
-        /* Khu vực bạn bè */
-        .friends-section {
-            background: rgba(30, 15, 50, 0.7);
-            backdrop-filter: blur(10px);
+        /* Reset Timer */
+        .reset-timer {
+            background: linear-gradient(145deg, #4a1e4a, #2a1f4a);
             border-radius: 40px;
-            padding: 18px;
-            margin: 15px 0;
-            border: 3px solid #ff5e9e;
-            box-shadow: 0 0 30px #ff5e9e;
+            padding: 12px;
+            margin: 10px 0;
+            border: 3px solid gold;
+            text-align: center;
+            animation: timerPulse 2s infinite;
         }
 
-        .friends-title {
-            font-size: 20px;
+        @keyframes timerPulse {
+            0%, 100% { box-shadow: 0 0 20px gold; }
+            50% { box-shadow: 0 0 40px #ff5e9e; }
+        }
+
+        .reset-timer .days {
+            font-size: 32px;
             font-weight: 900;
-            margin-bottom: 15px;
-            color: #ff9ec0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .friend-search {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .friend-search input {
-            flex: 1;
-            background: #2a1f4a;
-            border: 3px solid #ff5e9e;
-            border-radius: 60px;
-            padding: 12px 16px;
-            font-size: 16px;
-            color: white;
-            outline: none;
-        }
-
-        .friend-search button {
-            background: linear-gradient(145deg, #ff5e9e, #ff2e7a);
-            border: none;
-            border-radius: 60px;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 900;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 5px 0 #a01a4a;
-            border: 2px solid white;
-        }
-
-        .friend-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 5px;
-        }
-
-        .friend-item {
-            background: #2a1f4a;
-            border-radius: 40px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 2px solid #ff5e9e;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .friend-item:hover {
-            transform: translateX(5px);
-            border-color: #9d4eff;
-        }
-
-        .friend-item.online {
-            border-color: #00ff88;
-            box-shadow: 0 0 15px #00ff88;
-        }
-
-        .friend-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .friend-name {
-            font-weight: 700;
             color: gold;
         }
 
-        .friend-streak {
+        .reset-timer .label {
             font-size: 14px;
             color: #ff9ec0;
-        }
-
-        .friend-rank {
-            font-size: 12px;
-            background: #1a0f2a;
-            padding: 2px 8px;
-            border-radius: 20px;
-            border: 1px solid #9d4eff;
-        }
-
-        .friend-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .friend-actions button {
-            background: #9d4eff;
-            border: none;
-            border-radius: 40px;
-            padding: 6px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            border: 2px solid white;
-        }
-
-        .friend-actions button.pink {
-            background: #ff5e9e;
-        }
-
-        .online-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #00ff88;
-            display: inline-block;
-            margin-left: 5px;
-            box-shadow: 0 0 10px #00ff88;
-        }
-
-        .offline-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #666;
-            display: inline-block;
-            margin-left: 5px;
-        }
-
-        .search-result {
-            background: #2a1f4a;
-            border-radius: 40px;
-            padding: 16px;
-            margin-top: 10px;
-            text-align: center;
-            border: 2px solid #ff5e9e;
-        }
-
-        /* CHAT SECTION */
-        .chat-section {
-            background: rgba(30, 15, 50, 0.8);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            padding: 18px;
-            margin: 15px 0;
-            border: 3px solid #9d4eff;
-            box-shadow: 0 0 30px #9d4eff;
-        }
-
-        .chat-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .chat-header h3 {
-            font-size: 18px;
-            color: #ff9ec0;
-        }
-
-        .chat-friend-list {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-
-        .chat-friend-item {
-            background: #2a1f4a;
-            border-radius: 30px;
-            padding: 12px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 2px solid #9d4eff;
-            cursor: pointer;
-        }
-
-        .chat-friend-item.active {
-            background: #4a2f8a;
-            border-color: gold;
-        }
-
-        .chat-friend-item .unread {
-            background: #ff5e9e;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        .chat-messages {
-            background: #1a0f2a;
-            border-radius: 30px;
-            padding: 15px;
-            height: 250px;
-            overflow-y: auto;
-            margin-bottom: 15px;
-            border: 2px solid #9d4eff;
-        }
-
-        .message {
-            margin-bottom: 12px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .message.sent {
-            align-items: flex-end;
-        }
-
-        .message.received {
-            align-items: flex-start;
-        }
-
-        .message-bubble {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            position: relative;
-            word-wrap: break-word;
-        }
-
-        .message.sent .message-bubble {
-            background: linear-gradient(145deg, #9d4eff, #6b2fbf);
-            color: white;
-            border-bottom-right-radius: 5px;
-        }
-
-        .message.received .message-bubble {
-            background: #2a1f4a;
-            color: white;
-            border-bottom-left-radius: 5px;
-            border: 1px solid #9d4eff;
-        }
-
-        .message-time {
-            font-size: 10px;
-            color: #b0c0ff;
-            margin-top: 3px;
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-
-        .message-heart {
-            color: #ff5e9e;
-            font-size: 14px;
-            margin-left: 5px;
-            cursor: pointer;
-            animation: heartBeat 1s infinite;
-        }
-
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chat-input-area input {
-            flex: 1;
-            background: #2a1f4a;
-            border: 3px solid #9d4eff;
-            border-radius: 60px;
-            padding: 12px 16px;
-            font-size: 14px;
-            color: white;
-            outline: none;
-        }
-
-        .chat-input-area button {
-            background: linear-gradient(145deg, #9d4eff, #6b2fbf);
-            border: none;
-            border-radius: 60px;
-            padding: 12px 20px;
-            font-size: 14px;
-            font-weight: 900;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 5px 0 #4a1f8a;
-            border: 2px solid white;
-        }
-
-        .chat-input-area button.heart-btn {
-            background: linear-gradient(145deg, #ff5e9e, #ff2e7a);
-            box-shadow: 0 5px 0 #a01a4a;
         }
 
         /* Thông tin user */
@@ -605,7 +324,6 @@
 
         .stat-item {
             text-align: center;
-            position: relative;
         }
 
         .stat-value {
@@ -701,63 +419,424 @@
             color: #b87cff;
         }
 
-        .star-icon {
-            color: gold;
-            font-size: 18px;
-            margin-left: 5px;
+        /* Buff bar */
+        .buff-bar {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
         }
 
-        /* milestone */
-        .milestone-box {
-            background: rgba(30, 15, 50, 0.7);
-            backdrop-filter: blur(10px);
+        .buff-item {
+            background: #2a1f4a;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-size: 12px;
+            border: 2px solid gold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .buff-item.active {
+            animation: buffPulse 1s infinite;
+        }
+
+        @keyframes buffPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* PET SYSTEM */
+        .pet-section {
+            background: rgba(30, 15, 50, 0.8);
             border-radius: 40px;
-            padding: 22px;
-            border-left: 12px solid #9d4eff;
-            min-height: 140px;
-            margin: 20px 0;
-            border: 3px solid #9d4eff;
-            box-shadow: 0 0 30px #9d4eff;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid #ff5e9e;
         }
 
-        .gift {
+        .pet-showcase {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .pet-card {
+            min-width: 100px;
+            background: #2a1f4a;
+            border-radius: 30px;
+            padding: 15px 10px;
             text-align: center;
+            border: 2px solid #9d4eff;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .gift-emoji {
+        .pet-card:hover {
+            transform: scale(1.05);
+            border-color: gold;
+        }
+
+        .pet-card.equipped {
+            border-color: gold;
+            box-shadow: 0 0 30px gold;
+            animation: petShine 2s infinite;
+        }
+
+        @keyframes petShine {
+            0% { filter: drop-shadow(0 0 5px gold); }
+            50% { filter: drop-shadow(0 0 20px gold); }
+            100% { filter: drop-shadow(0 0 5px gold); }
+        }
+
+        .pet-emoji {
             font-size: 48px;
-            filter: drop-shadow(0 0 20px gold);
-            animation: bounce 2s infinite;
+            animation: petFloat 3s infinite;
         }
 
-        @keyframes bounce {
+        @keyframes petFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
 
-        .gift-text {
-            font-size: 20px;
+        .pet-name {
+            font-size: 14px;
             font-weight: 700;
-            color: #ffdb9f;
+            margin: 5px 0;
+        }
+
+        .pet-buff {
+            font-size: 11px;
+            background: #4a1f4a;
+            padding: 3px;
+            border-radius: 20px;
+            margin-top: 5px;
+        }
+
+        .pet-price {
+            font-size: 12px;
+            color: #ff5e9e;
+            font-weight: 900;
+        }
+
+        .pet-mythical {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(145deg, gold, purple);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border: 2px solid white;
+        }
+
+        /* PET HUYỀN THOẠI */
+        .mythical-pet-section {
+            background: linear-gradient(145deg, #4a1f6a, #2a1f5a);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid gold;
+            animation: mythicalGlow 3s infinite;
+        }
+
+        @keyframes mythicalGlow {
+            0%, 100% { box-shadow: 0 0 30px gold; }
+            50% { box-shadow: 0 0 60px #ff00ff; }
+        }
+
+        .friends-title {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #ff9ec0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* MÔN HỌC */
+        .subject-detail {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 3px solid #9d4eff;
+        }
+
+        .subject-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .subject-icon {
+            font-size: 40px;
+        }
+
+        .subject-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: gold;
+        }
+
+        .sub-tasks {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .sub-task {
+            flex: 1;
+            background: #1a0f2a;
+            border-radius: 30px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #ff5e9e;
+            transition: 0.2s;
+        }
+
+        .sub-task.done {
+            border-color: gold;
+            background: #3a2f5a;
+            box-shadow: 0 0 20px gold;
+        }
+
+        .sub-task-emoji {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .sub-task-name {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .progress-bar-container {
             margin: 10px 0;
         }
 
-        .gift-reward {
+        .progress-label {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            font-size: 18px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
 
-        .locked {
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #1a0f2a;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #9d4eff;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffae42, gold);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* Kho đồ */
+        .inventory-section {
+            background: rgba(30, 15, 50, 0.8);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid #9d4eff;
+        }
+
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .inventory-item {
+            background: #2a1f4a;
+            border-radius: 20px;
+            padding: 10px;
             text-align: center;
-            color: #b0c0ff;
-            font-size: 18px;
-            padding: 30px;
+            border: 2px solid #ff5e9e;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
-        /* SHOP */
+        .inventory-item:hover {
+            transform: scale(1.05);
+            border-color: gold;
+        }
+
+        /* Bạn bè */
+        .friends-section {
+            background: rgba(30, 15, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid #ff5e9e;
+        }
+
+        .friend-search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .friend-search input {
+            flex: 1;
+            background: #2a1f4a;
+            border: 3px solid #ff5e9e;
+            border-radius: 60px;
+            padding: 12px 16px;
+            font-size: 16px;
+            color: white;
+            outline: none;
+        }
+
+        .friend-search input::placeholder {
+            color: #b0c0ff;
+            opacity: 0.7;
+        }
+
+        .friend-search button {
+            background: linear-gradient(145deg, #ff5e9e, #ff2e7a);
+            border: none;
+            border-radius: 60px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #a01a4a;
+            border: 2px solid white;
+        }
+
+        .friend-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .friend-item {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid #ff5e9e;
+        }
+
+        .friend-name {
+            font-weight: 700;
+            color: gold;
+        }
+
+        .friend-streak {
+            font-size: 14px;
+            color: #ff9ec0;
+        }
+
+        .friend-actions button {
+            background: #9d4eff;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            border: 2px solid white;
+            margin: 2px;
+        }
+
+        .search-result {
+            background: #2a1f4a;
+            border-radius: 40px;
+            padding: 16px;
+            margin-top: 10px;
+            text-align: center;
+            border: 2px solid #ff5e9e;
+        }
+
+        /* Bảng xếp hạng */
+        .leaderboard-section {
+            background: rgba(30, 15, 50, 0.8);
+            border-radius: 40px;
+            padding: 18px;
+            margin: 15px 0;
+            border: 3px solid gold;
+        }
+
+        .friend-leaderboard {
+            background: #2a1f4a;
+            border-radius: 30px;
+            padding: 15px;
+        }
+
+        .friend-leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-bottom: 1px solid #9d4eff;
+        }
+
+        .friend-rank-badge {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #9d4eff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        /* Cúp */
+        .cup-showcase {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+
+        .cup-item {
+            text-align: center;
+            padding: 10px;
+            background: #2a1f4a;
+            border-radius: 30px;
+            border: 2px solid gold;
+            width: 80px;
+        }
+
+        .cup-emoji {
+            font-size: 32px;
+        }
+
+        .cup-name {
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Shop */
         .shop-section {
             background: rgba(30, 15, 50, 0.7);
             backdrop-filter: blur(10px);
@@ -817,109 +896,12 @@
             font-weight: 900;
         }
 
-        .shop-item.streak-required {
-            border-color: #9d4eff;
-            background: #3a2f5a;
-        }
-
-        /* 4 môn */
-        .section-title {
-            font-size: 22px;
-            font-weight: 900;
-            margin: 20px 0 15px;
-            color: #9d4eff;
-            text-shadow: 0 0 20px #9d4eff;
-        }
-
-        .subject-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin: 20px 0;
-        }
-
-        .subject {
-            background: linear-gradient(145deg, #1f1f4a, #12123f);
-            border-radius: 50px;
-            padding: 26px 8px;
-            text-align: center;
-            box-shadow: 0 12px 0 #0a0a20;
-            cursor: pointer;
-            border: 4px solid transparent;
-            transition: 0.2s;
-        }
-
-        .subject.done {
-            background: linear-gradient(145deg, #3f3f90, #2f2f80);
-            border-color: #9d4eff;
-            box-shadow: 0 12px 0 #4a1f8a, 0 0 30px #9d4eff;
-            transform: translateY(-3px);
-        }
-
-        .subject-emoji {
-            font-size: 56px;
-        }
-
-        .subject-name {
-            font-size: 24px;
-            font-weight: 900;
-        }
-
-        .task {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #1f1f4a;
-            padding: 18px 22px;
-            border-radius: 60px;
-            margin-bottom: 14px;
-            border-left: 10px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 3px solid #4e4e9e;
-        }
-
-        .task:hover {
-            transform: translateX(5px);
-            box-shadow: 0 0 30px #9d4eff;
-        }
-
-        .task.done {
-            border-left-color: #9d4eff;
-            background: #2f2f6a;
-            border-color: #9d4eff;
-            box-shadow: 0 0 30px #9d4eff;
-        }
-
-        .task-left {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-
-        .check {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #0a0a20;
-            border: 4px solid #9d4eff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-        }
-
-        .done .check {
-            background: #9d4eff;
-            color: black;
-        }
-
+        /* Warning */
         .warning {
             background: #4a1e2e;
             border-radius: 40px;
             padding: 18px;
             margin-top: 25px;
-            border-left: 12px solid #ff6b6b;
             font-size: 18px;
             color: #ffc3c3;
             font-weight: 700;
@@ -930,15 +912,6 @@
         @keyframes warningPulse {
             0%, 100% { box-shadow: 0 0 20px red; }
             50% { box-shadow: 0 0 40px #ff6b6b; }
-        }
-
-        .footer-note {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-            color: #b0c0ff;
-            font-style: italic;
-            text-shadow: 0 0 10px #9d4eff;
         }
 
         .logout-btn {
@@ -952,34 +925,12 @@
             text-align: center;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 700;
-            margin-left: 5px;
-        }
-
-        .badge.streak {
-            background: #ff5e9e;
-            color: white;
-        }
-
-        .badge.vip {
-            background: gold;
-            color: black;
-        }
-
-        .badge.heart {
-            background: #ff5e9e;
-            color: white;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #b0c0ff;
+            font-style: italic;
         }
     </style>
 </head>
@@ -990,11 +941,11 @@
             <div class="avatar">👑</div>
             <div class="name">
                 <h1>CÀY CHUỖI</h1>
-                <div class="class">VIP · KẾT BẠN · LỬA TÍM · CHAT</div>
+                <div class="class">VIP · KẾT BẠN · LỬA TÍM · PET</div>
             </div>
         </div>
 
-        <!-- Tab chuyển đổi -->
+        <!-- PHẦN ĐĂNG KÝ/ĐĂNG NHẬP GỐC -->
         <div class="auth-tabs" id="authTabs">
             <div class="auth-tab active" id="registerTab">📝 ĐĂNG KÝ</div>
             <div class="auth-tab" id="loginTab">🔑 ĐĂNG NHẬP</div>
@@ -1021,22 +972,31 @@
             </div>
         </div>
 
-        <!-- MAIN APP -->
+        <!-- MAIN APP (ẨN KHI CHƯA ĐĂNG NHẬP) -->
         <div id="mainApp">
             <!-- Nút đăng xuất -->
             <div class="logout-btn" id="logoutBtn">🚪 ĐĂNG XUẤT</div>
 
-            <!-- Navigation Tabs -->
+            <!-- Navigation -->
             <div class="nav-tabs">
                 <div class="nav-tab active" data-section="home">🏠 HOME</div>
-                <div class="nav-tab" data-section="friends">👥 BẠN BÈ</div>
-                <div class="nav-tab" data-section="chat">💬 CHAT</div>
+                <div class="nav-tab" data-section="study">📚 HỌC</div>
+                <div class="nav-tab" data-section="pets">🐾 PET</div>
+                <div class="nav-tab" data-section="friends">👥 BẠN</div>
+                <div class="nav-tab" data-section="rank">🏆 RANK</div>
                 <div class="nav-tab" data-section="shop">🛒 SHOP</div>
             </div>
 
             <!-- HOME SECTION -->
             <div class="section active" id="homeSection">
-                <!-- Tên và streak với hiệu ứng lửa tím -->
+                <!-- Reset Timer -->
+                <div class="reset-timer" id="resetTimer">
+                    <span class="cup-icon">🏆</span>
+                    <span class="days" id="daysUntilReset">30</span>
+                    <span class="label">ngày còn lại đến RESET RANK</span>
+                </div>
+
+                <!-- User Info -->
                 <div class="streak-name">
                     <span class="user-name-display" id="userNameDisplay">---</span>
                     <div class="current-streak">
@@ -1045,23 +1005,27 @@
                     </div>
                 </div>
 
-                <!-- Thông số -->
+                <!-- Stats -->
                 <div class="user-stats">
                     <div class="stat-item">
                         <div class="stat-value" id="diamondNum">50</div>
-                        <div class="stat-label">💎 KIM CƯƠNG</div>
+                        <div class="stat-label">💎</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value" id="expNum">0</div>
-                        <div class="stat-label">✨ EXP</div>
+                        <div class="stat-label">✨</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value" id="starNum">0</div>
-                        <div class="stat-label">⭐ SAO</div>
+                        <div class="stat-label">⭐</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="cupNum">0</div>
+                        <div class="stat-label">🏆</div>
                     </div>
                 </div>
 
-                <!-- Rank & EXP -->
+                <!-- Rank -->
                 <div class="rank-bar">
                     <div class="rank-info">
                         <span class="rank-name" id="rankName">Gỗ</span>
@@ -1072,47 +1036,61 @@
                     </div>
                 </div>
 
-                <!-- QUÀ TẶNG KHI ĐẠT MỐC -->
+                <!-- Active Buffs -->
+                <div class="buff-bar" id="buffBar"></div>
+
+                <!-- Current Pet -->
+                <div class="pet-section" id="currentPetDisplay">
+                    <div style="text-align: center; color: #b0c0ff;">Trang bị pet để nhận buff</div>
+                </div>
+
+                <!-- Milestone -->
                 <div class="milestone-box" id="milestoneBox">
                     <div class="locked">🔒 Đạt streak để nhận quà</div>
                 </div>
+            </div>
 
-                <!-- 4 MÔN HỌC -->
-                <div class="section-title">📚 HÔM NAY</div>
-                <div class="subject-grid" id="subjectGrid">
-                    <div class="subject" data-subj="toan">
-                        <div class="subject-emoji">🧮</div>
-                        <div class="subject-name">Toán</div>
-                    </div>
-                    <div class="subject" data-subj="van">
-                        <div class="subject-emoji">📖</div>
-                        <div class="subject-name">Văn</div>
-                    </div>
-                    <div class="subject" data-subj="anh">
-                        <div class="subject-emoji">🇬🇧</div>
-                        <div class="subject-name">Anh</div>
-                    </div>
-                    <div class="subject" data-subj="khtn">
-                        <div class="subject-emoji">🔬</div>
-                        <div class="subject-name">KHTN</div>
-                    </div>
-                </div>
-
-                <!-- DANH SÁCH TASK -->
-                <div id="taskList"></div>
-
-                <!-- CẢNH BÁO -->
+            <!-- STUDY SECTION -->
+            <div class="section" id="studySection">
+                <div class="section-title">📚 MÔN HỌC (LÝ THUYẾT + BÀI TẬP)</div>
+                <div id="subjectDetails"></div>
                 <div class="warning" id="warningMsg">
                     ⚠️ Hoàn thành đủ 4 môn để +1 streak
                 </div>
             </div>
 
+            <!-- PET SECTION -->
+            <div class="section" id="petsSection">
+                <!-- Pet Inventory -->
+                <div class="pet-section">
+                    <div class="friends-title">🐾 PET CỦA BẠN</div>
+                    <div class="pet-showcase" id="petInventory"></div>
+                </div>
+
+                <!-- 5 PET HUYỀN THOẠI -->
+                <div class="mythical-pet-section">
+                    <div class="friends-title" style="color: gold;">👑 5 PET HUYỀN THOẠI</div>
+                    <div class="pet-showcase" id="mythicalPets"></div>
+                </div>
+
+                <!-- Shop Pet -->
+                <div class="shop-section">
+                    <div class="shop-title">🛒 MUA PET</div>
+                    <div class="shop-grid" id="petShop"></div>
+                </div>
+            </div>
+
             <!-- FRIENDS SECTION -->
             <div class="section" id="friendsSection">
+                <!-- Friend Leaderboard -->
+                <div class="leaderboard-section">
+                    <div class="friends-title">🏆 BẢNG XẾP HẠNG BẠN BÈ</div>
+                    <div class="friend-leaderboard" id="friendLeaderboard"></div>
+                </div>
+
+                <!-- Friend List -->
                 <div class="friends-section">
-                    <div class="friends-title">
-                        <span>👥</span> KẾT BẠN CÙNG CÀY (KHÔNG GIỚI HẠN)
-                    </div>
+                    <div class="friends-title">👥 DANH SÁCH BẠN BÈ</div>
                     <div class="friend-search">
                         <input type="text" id="searchFriendInput" placeholder="Nhập tên bạn bè...">
                         <button id="searchFriendBtn">🔍 TÌM</button>
@@ -1120,61 +1098,42 @@
                     <div class="search-result" id="searchFriendResult">
                         🔍 Nhập tên để tìm kiếm bạn bè
                     </div>
-                    <div class="friends-title" style="margin-top: 15px;">
-                        <span>📋</span> DANH SÁCH BẠN BÈ (<span id="friendCount">0</span>)
-                    </div>
-                    <div class="friend-list" id="friendListContainer">
-                        <!-- Danh sách bạn bè sẽ được render ở đây -->
-                    </div>
+                    <div class="friend-list" id="friendListContainer"></div>
                 </div>
             </div>
 
-            <!-- CHAT SECTION -->
-            <div class="section" id="chatSection">
-                <div class="chat-section">
-                    <div class="chat-header">
-                        <h3>💬 NHẮN TIN VỚI BẠN BÈ</h3>
-                        <span id="onlineCount" style="color: #00ff88;">0 online</span>
-                    </div>
-                    
-                    <!-- Danh sách bạn bè để chat -->
-                    <div class="chat-friend-list" id="chatFriendList">
-                        <!-- Sẽ được render bằng JS -->
-                    </div>
+            <!-- RANK SECTION -->
+            <div class="section" id="rankSection">
+                <!-- Monthly Cups -->
+                <div class="leaderboard-section">
+                    <div class="friends-title">🏆 CÚP HÀNG THÁNG</div>
+                    <div class="cup-showcase" id="cupShowcase"></div>
+                </div>
 
-                    <!-- Khung chat -->
-                    <div id="chatBox" style="display: none;">
-                        <div class="chat-header" style="justify-content: space-between;">
-                            <span id="currentChatFriend"></span>
-                            <button class="btn small pink" onclick="closeChat()">✖ ĐÓNG</button>
-                        </div>
-                        
-                        <!-- Messages -->
-                        <div class="chat-messages" id="chatMessages">
-                            <!-- Messages sẽ hiển thị ở đây -->
-                        </div>
+                <!-- Global Leaderboard -->
+                <div class="leaderboard-section">
+                    <div class="friends-title">🌍 BẢNG XẾP HẠNG TOÀN CẦU</div>
+                    <div id="globalLeaderboard"></div>
+                </div>
 
-                        <!-- Input area -->
-                        <div class="chat-input-area">
-                            <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
-                            <button class="heart-btn" onclick="sendHeart()" title="Gửi tim">❤️</button>
-                            <button onclick="sendMessage()">GỬI</button>
-                        </div>
-                    </div>
-
-                    <div id="noChatSelected" style="text-align: center; padding: 30px; color: #b0c0ff;">
-                        💬 Chọn một người bạn để bắt đầu trò chuyện
-                    </div>
+                <!-- Reset Info -->
+                <div class="reset-timer">
+                    <span class="days" id="resetDays">30</span>
+                    <span class="label">ngày đến RESET - Ai cao nhất sẽ nhận CÚP ĐẶC BIỆT!</span>
                 </div>
             </div>
 
             <!-- SHOP SECTION -->
             <div class="section" id="shopSection">
                 <div class="shop-section">
-                    <div class="shop-title">🛒 SHOP KIM CƯƠNG (ĐỒ MỚI MỖI NGÀY)</div>
-                    <div class="shop-grid" id="shopGrid">
-                        <!-- Shop items sẽ được render bằng JS -->
-                    </div>
+                    <div class="shop-title">🛒 SHOP VŨ TRỤ</div>
+                    <div class="shop-grid" id="shopGrid"></div>
+                </div>
+
+                <!-- Inventory -->
+                <div class="inventory-section">
+                    <div class="friends-title">📦 KHO ĐỒ</div>
+                    <div class="inventory-grid" id="inventoryGrid"></div>
                 </div>
             </div>
 
@@ -1190,104 +1149,142 @@
             let accounts = {};
             let currentUser = null;
             let onlineUsers = new Set();
-            let currentChat = null;
-            let messageInterval = null;
 
-            // HỆ THỐNG RANK CHI TIẾT VỚI SAO
-            const rankSystem = [
-                // Gỗ (5 cấp)
-                { tier: 'Gỗ', star: 1, name: '🪵 Gỗ 1', minExp: 0, maxExp: 49 },
-                { tier: 'Gỗ', star: 2, name: '🪵 Gỗ 2', minExp: 50, maxExp: 99 },
-                { tier: 'Gỗ', star: 3, name: '🪵 Gỗ 3', minExp: 100, maxExp: 149 },
-                { tier: 'Gỗ', star: 4, name: '🪵 Gỗ 4', minExp: 150, maxExp: 199 },
-                { tier: 'Gỗ', star: 5, name: '🪵 Gỗ 5', minExp: 200, maxExp: 249 },
-                
-                // Đồng (5 cấp)
-                { tier: 'Đồng', star: 1, name: '🥉 Đồng 1', minExp: 250, maxExp: 299 },
-                { tier: 'Đồng', star: 2, name: '🥉 Đồng 2', minExp: 300, maxExp: 349 },
-                { tier: 'Đồng', star: 3, name: '🥉 Đồng 3', minExp: 350, maxExp: 399 },
-                { tier: 'Đồng', star: 4, name: '🥉 Đồng 4', minExp: 400, maxExp: 449 },
-                { tier: 'Đồng', star: 5, name: '🥉 Đồng 5', minExp: 450, maxExp: 499 },
-                
-                // Bạc (5 cấp)
-                { tier: 'Bạc', star: 1, name: '🥈 Bạc 1', minExp: 500, maxExp: 549 },
-                { tier: 'Bạc', star: 2, name: '🥈 Bạc 2', minExp: 550, maxExp: 599 },
-                { tier: 'Bạc', star: 3, name: '🥈 Bạc 3', minExp: 600, maxExp: 649 },
-                { tier: 'Bạc', star: 4, name: '🥈 Bạc 4', minExp: 650, maxExp: 699 },
-                { tier: 'Bạc', star: 5, name: '🥈 Bạc 5', minExp: 700, maxExp: 749 },
-                
-                // Vàng (5 cấp)
-                { tier: 'Vàng', star: 1, name: '🥇 Vàng 1', minExp: 750, maxExp: 799 },
-                { tier: 'Vàng', star: 2, name: '🥇 Vàng 2', minExp: 800, maxExp: 849 },
-                { tier: 'Vàng', star: 3, name: '🥇 Vàng 3', minExp: 850, maxExp: 899 },
-                { tier: 'Vàng', star: 4, name: '🥇 Vàng 4', minExp: 900, maxExp: 949 },
-                { tier: 'Vàng', star: 5, name: '🥇 Vàng 5', minExp: 950, maxExp: 999 },
-                
-                // Bạch kim (5 cấp)
-                { tier: 'Bạch Kim', star: 1, name: '⚪ Bạch Kim 1', minExp: 1000, maxExp: 1099 },
-                { tier: 'Bạch Kim', star: 2, name: '⚪ Bạch Kim 2', minExp: 1100, maxExp: 1199 },
-                { tier: 'Bạch Kim', star: 3, name: '⚪ Bạch Kim 3', minExp: 1200, maxExp: 1299 },
-                { tier: 'Bạch Kim', star: 4, name: '⚪ Bạch Kim 4', minExp: 1300, maxExp: 1399 },
-                { tier: 'Bạch Kim', star: 5, name: '⚪ Bạch Kim 5', minExp: 1400, maxExp: 1499 },
-                
-                // Kim cương (5 cấp)
-                { tier: 'Kim Cương', star: 1, name: '💎 Kim Cương 1', minExp: 1500, maxExp: 1649 },
-                { tier: 'Kim Cương', star: 2, name: '💎 Kim Cương 2', minExp: 1650, maxExp: 1799 },
-                { tier: 'Kim Cương', star: 3, name: '💎 Kim Cương 3', minExp: 1800, maxExp: 1949 },
-                { tier: 'Kim Cương', star: 4, name: '💎 Kim Cương 4', minExp: 1950, maxExp: 2099 },
-                { tier: 'Kim Cương', star: 5, name: '💎 Kim Cương 5', minExp: 2100, maxExp: 2249 },
-                
-                // Huyền thoại (5 cấp)
-                { tier: 'Huyền Thoại', star: 1, name: '🔥 Huyền Thoại 1', minExp: 2250, maxExp: 2499 },
-                { tier: 'Huyền Thoại', star: 2, name: '🔥 Huyền Thoại 2', minExp: 2500, maxExp: 2749 },
-                { tier: 'Huyền Thoại', star: 3, name: '🔥 Huyền Thoại 3', minExp: 2750, maxExp: 2999 },
-                { tier: 'Huyền Thoại', star: 4, name: '🔥 Huyền Thoại 4', minExp: 3000, maxExp: 3249 },
-                { tier: 'Huyền Thoại', star: 5, name: '🔥 Huyền Thoại 5', minExp: 3250, maxExp: 3499 },
-                
-                // Siêu huyền thoại (5 cấp)
-                { tier: 'Siêu Huyền Thoại', star: 1, name: '⚡ Siêu Huyền Thoại 1', minExp: 3500, maxExp: 3749 },
-                { tier: 'Siêu Huyền Thoại', star: 2, name: '⚡ Siêu Huyền Thoại 2', minExp: 3750, maxExp: 3999 },
-                { tier: 'Siêu Huyền Thoại', star: 3, name: '⚡ Siêu Huyền Thoại 3', minExp: 4000, maxExp: 4249 },
-                { tier: 'Siêu Huyền Thoại', star: 4, name: '⚡ Siêu Huyền Thoại 4', minExp: 4250, maxExp: 4499 },
-                { tier: 'Siêu Huyền Thoại', star: 5, name: '⚡ Siêu Huyền Thoại 5', minExp: 4500, maxExp: 4749 },
-                
-                // Cao thủ (5 cấp)
-                { tier: 'Cao Thủ', star: 1, name: '👑 Cao Thủ 1', minExp: 4750, maxExp: 4999 },
-                { tier: 'Cao Thủ', star: 2, name: '👑 Cao Thủ 2', minExp: 5000, maxExp: 5249 },
-                { tier: 'Cao Thủ', star: 3, name: '👑 Cao Thủ 3', minExp: 5250, maxExp: 5499 },
-                { tier: 'Cao Thủ', star: 4, name: '👑 Cao Thủ 4', minExp: 5500, maxExp: 5749 },
-                { tier: 'Cao Thủ', star: 5, name: '👑 Cao Thủ 5', minExp: 5750, maxExp: 5999 },
-                
-                // Đại cao thủ (5 cấp)
-                { tier: 'Đại Cao Thủ', star: 1, name: '🏆 Đại Cao Thủ 1', minExp: 6000, maxExp: 6249 },
-                { tier: 'Đại Cao Thủ', star: 2, name: '🏆 Đại Cao Thủ 2', minExp: 6250, maxExp: 6499 },
-                { tier: 'Đại Cao Thủ', star: 3, name: '🏆 Đại Cao Thủ 3', minExp: 6500, maxExp: 6749 },
-                { tier: 'Đại Cao Thủ', star: 4, name: '🏆 Đại Cao Thủ 4', minExp: 6750, maxExp: 6999 },
-                { tier: 'Đại Cao Thủ', star: 5, name: '🏆 Đại Cao Thủ 5', minExp: 7000, maxExp: 7249 },
-                
-                // Thần thánh (5 cấp)
-                { tier: 'Thần Thánh', star: 1, name: '🪐 Thần Thánh 1', minExp: 7250, maxExp: 7499 },
-                { tier: 'Thần Thánh', star: 2, name: '🪐 Thần Thánh 2', minExp: 7500, maxExp: 7749 },
-                { tier: 'Thần Thánh', star: 3, name: '🪐 Thần Thánh 3', minExp: 7750, maxExp: 7999 },
-                { tier: 'Thần Thánh', star: 4, name: '🪐 Thần Thánh 4', minExp: 8000, maxExp: 8249 },
-                { tier: 'Thần Thánh', star: 5, name: '🪐 Thần Thánh 5', minExp: 8250, maxExp: 8499 },
-                
-                // Lửa tím (5 cấp)
-                { tier: 'Lửa Tím', star: 1, name: '💜 Lửa Tím 1', minExp: 8500, maxExp: 8749 },
-                { tier: 'Lửa Tím', star: 2, name: '💜 Lửa Tím 2', minExp: 8750, maxExp: 8999 },
-                { tier: 'Lửa Tím', star: 3, name: '💜 Lửa Tím 3', minExp: 9000, maxExp: 9249 },
-                { tier: 'Lửa Tím', star: 4, name: '💜 Lửa Tím 4', minExp: 9250, maxExp: 9499 },
-                { tier: 'Lửa Tím', star: 5, name: '💜 Lửa Tím 5', minExp: 9500, maxExp: 9749 },
-                
-                // Huyền thoại vĩnh cửu (5 cấp)
-                { tier: 'Huyền Thoại Vĩnh Cửu', star: 1, name: '♾️ HTVC 1', minExp: 9750, maxExp: 9999 },
-                { tier: 'Huyền Thoại Vĩnh Cửu', star: 2, name: '♾️ HTVC 2', minExp: 10000, maxExp: 10499 },
-                { tier: 'Huyền Thoại Vĩnh Cửu', star: 3, name: '♾️ HTVC 3', minExp: 10500, maxExp: 10999 },
-                { tier: 'Huyền Thoại Vĩnh Cửu', star: 4, name: '♾️ HTVC 4', minExp: 11000, maxExp: 11499 },
-                { tier: 'Huyền Thoại Vĩnh Cửu', star: 5, name: '♾️ HTVC 5', minExp: 11500, maxExp: 11999 }
+            // 5 PET HUYỀN THOẠI
+            const MYTHICAL_PETS = [
+                { 
+                    id: 'dragon_god', 
+                    name: 'RỒNG THẦN', 
+                    emoji: '🐉✨', 
+                    price: 50000,
+                    buff: { exp: 3.0, diamond: 3.0, streak: 2 },
+                    description: 'x3 EXP, x3 💎, +2 streak/ngày'
+                },
+                { 
+                    id: 'phoenix', 
+                    name: 'PHƯỢNG HOÀNG', 
+                    emoji: '🦅🔥', 
+                    price: 45000,
+                    buff: { exp: 2.5, diamond: 2.5, rebirth: true },
+                    description: 'x2.5 EXP, 💎, hồi sinh 1 lần/tháng'
+                },
+                { 
+                    id: 'unicorn', 
+                    name: 'KỲ LÂN', 
+                    emoji: '🦄✨', 
+                    price: 40000,
+                    buff: { diamond: 4.0, luck: true },
+                    description: 'x4 💎, may mắn gấp đôi'
+                },
+                { 
+                    id: 'griffin', 
+                    name: 'SƯ TỬ ĐẠI BÀNG', 
+                    emoji: '🦁🦅', 
+                    price: 55000,
+                    buff: { exp: 2.0, diamond: 2.0, steal: true },
+                    description: 'x2 mọi thứ, cướp 10% EXP bạn bè'
+                },
+                { 
+                    id: 'cerberus', 
+                    name: 'CHÓ 3 ĐẦU', 
+                    emoji: '🐕🐕🐕', 
+                    price: 60000,
+                    buff: { exp: 2.0, defense: true, triple: true },
+                    description: 'Bảo vệ streak, nhân 3 phần thưởng'
+                }
             ];
 
-            // QUÀ THEO STREAK (nâng lên 500 ngày)
+            // PET THƯỜNG
+            const NORMAL_PETS = [
+                { id: 'cat', name: 'Mèo', emoji: '🐱', price: 100, buff: { exp: 1.1 } },
+                { id: 'dog', name: 'Chó', emoji: '🐶', price: 150, buff: { diamond: 1.1 } },
+                { id: 'hamster', name: 'Hamster', emoji: '🐹', price: 80, buff: { streak: 0.1 } },
+                { id: 'rabbit', name: 'Thỏ', emoji: '🐰', price: 120, buff: { exp: 1.05, diamond: 1.05 } },
+                { id: 'fox', name: 'Cáo', emoji: '🦊', price: 200, buff: { luck: true } },
+                { id: 'panda', name: 'Gấu trúc', emoji: '🐼', price: 300, buff: { exp: 1.2 } },
+                { id: 'koala', name: 'Koala', emoji: '🐨', price: 250, buff: { diamond: 1.15 } },
+                { id: 'lion', name: 'Sư tử', emoji: '🦁', price: 500, buff: { exp: 1.3 } },
+                { id: 'tiger', name: 'Hổ', emoji: '🐯', price: 550, buff: { diamond: 1.25 } },
+                { id: 'elephant', name: 'Voi', emoji: '🐘', price: 800, buff: { exp: 1.15, diamond: 1.15 } }
+            ];
+
+            // CÚP HÀNG THÁNG
+            const MONTHLY_CUPS = [
+                { month: 1, name: 'CÚP BĂNG', emoji: '❄️🏆' },
+                { month: 2, name: 'CÚP LỬA', emoji: '🔥🏆' },
+                { month: 3, name: 'CÚP ĐẤT', emoji: '🌍🏆' },
+                { month: 4, name: 'CÚP GIÓ', emoji: '💨🏆' },
+                { month: 5, name: 'CÚP SẤM', emoji: '⚡🏆' },
+                { month: 6, name: 'CÚP MƯA', emoji: '🌧️🏆' },
+                { month: 7, name: 'CÚP CẦU VỒNG', emoji: '🌈🏆' },
+                { month: 8, name: 'CÚP MẶT TRĂNG', emoji: '🌙🏆' },
+                { month: 9, name: 'CÚP MẶT TRỜI', emoji: '☀️🏆' },
+                { month: 10, name: 'CÚP SAO', emoji: '⭐🏆' },
+                { month: 11, name: 'CÚP THIÊN HÀ', emoji: '🌌🏆' },
+                { month: 12, name: 'CÚP VŨ TRỤ', emoji: '🌠🏆' }
+            ];
+
+            // SHOP ITEMS
+            const shopItems = [
+                { id: 'exp_small', name: '20 EXP', emoji: '✨', price: 20, type: 'exp', value: 20 },
+                { id: 'exp_medium', name: '50 EXP', emoji: '✨✨', price: 45, type: 'exp', value: 50 },
+                { id: 'exp_large', name: '100 EXP', emoji: '✨✨✨', price: 80, type: 'exp', value: 100 },
+                { id: 'diamond_small', name: '10 💎', emoji: '💎', price: 5, type: 'diamonds', value: 10 },
+                { id: 'diamond_medium', name: '50 💎', emoji: '💎💎', price: 20, type: 'diamonds', value: 50 },
+                { id: 'diamond_large', name: '200 💎', emoji: '💎💎💎', price: 70, type: 'diamonds', value: 200 },
+                { id: 'star_small', name: '5 ⭐', emoji: '⭐', price: 30, type: 'stars', value: 5 },
+                { id: 'star_medium', name: '20 ⭐', emoji: '⭐⭐', price: 100, type: 'stars', value: 20 },
+                { id: 'star_large', name: '50 ⭐', emoji: '⭐⭐⭐', price: 200, type: 'stars', value: 50 },
+                { id: 'boost', name: 'Boost Streak', emoji: '⚡', price: 50, type: 'boost', value: 1 },
+                { id: 'exp_boost', name: 'x2 EXP 7 ngày', emoji: '2️⃣', price: 300, type: 'exp_boost', value: 2 },
+                { id: 'diamond_boost', name: 'x2 💎 7 ngày', emoji: '2️⃣💎', price: 300, type: 'diamond_boost', value: 2 }
+            ];
+
+            // RANK SYSTEM
+            const rankSystem = [
+                { tier: 'Gỗ', star: 1, name: '🪵 Gỗ 1', minExp: 0, maxExp: 49, resetReward: 10 },
+                { tier: 'Gỗ', star: 2, name: '🪵 Gỗ 2', minExp: 50, maxExp: 99, resetReward: 20 },
+                { tier: 'Gỗ', star: 3, name: '🪵 Gỗ 3', minExp: 100, maxExp: 149, resetReward: 30 },
+                { tier: 'Gỗ', star: 4, name: '🪵 Gỗ 4', minExp: 150, maxExp: 199, resetReward: 40 },
+                { tier: 'Gỗ', star: 5, name: '🪵 Gỗ 5', minExp: 200, maxExp: 249, resetReward: 50 },
+                { tier: 'Đồng', star: 1, name: '🥉 Đồng 1', minExp: 250, maxExp: 299, resetReward: 60 },
+                { tier: 'Đồng', star: 2, name: '🥉 Đồng 2', minExp: 300, maxExp: 349, resetReward: 70 },
+                { tier: 'Đồng', star: 3, name: '🥉 Đồng 3', minExp: 350, maxExp: 399, resetReward: 80 },
+                { tier: 'Đồng', star: 4, name: '🥉 Đồng 4', minExp: 400, maxExp: 449, resetReward: 90 },
+                { tier: 'Đồng', star: 5, name: '🥉 Đồng 5', minExp: 450, maxExp: 499, resetReward: 100 },
+                { tier: 'Bạc', star: 1, name: '🥈 Bạc 1', minExp: 500, maxExp: 549, resetReward: 120 },
+                { tier: 'Bạc', star: 2, name: '🥈 Bạc 2', minExp: 550, maxExp: 599, resetReward: 140 },
+                { tier: 'Bạc', star: 3, name: '🥈 Bạc 3', minExp: 600, maxExp: 649, resetReward: 160 },
+                { tier: 'Bạc', star: 4, name: '🥈 Bạc 4', minExp: 650, maxExp: 699, resetReward: 180 },
+                { tier: 'Bạc', star: 5, name: '🥈 Bạc 5', minExp: 700, maxExp: 749, resetReward: 200 },
+                { tier: 'Vàng', star: 1, name: '🥇 Vàng 1', minExp: 750, maxExp: 799, resetReward: 250 },
+                { tier: 'Vàng', star: 2, name: '🥇 Vàng 2', minExp: 800, maxExp: 849, resetReward: 300 },
+                { tier: 'Vàng', star: 3, name: '🥇 Vàng 3', minExp: 850, maxExp: 899, resetReward: 350 },
+                { tier: 'Vàng', star: 4, name: '🥇 Vàng 4', minExp: 900, maxExp: 949, resetReward: 400 },
+                { tier: 'Vàng', star: 5, name: '🥇 Vàng 5', minExp: 950, maxExp: 999, resetReward: 450 },
+                { tier: 'Bạch Kim', star: 1, name: '⚪ Bạch Kim 1', minExp: 1000, maxExp: 1099, resetReward: 500 },
+                { tier: 'Bạch Kim', star: 2, name: '⚪ Bạch Kim 2', minExp: 1100, maxExp: 1199, resetReward: 550 },
+                { tier: 'Bạch Kim', star: 3, name: '⚪ Bạch Kim 3', minExp: 1200, maxExp: 1299, resetReward: 600 },
+                { tier: 'Bạch Kim', star: 4, name: '⚪ Bạch Kim 4', minExp: 1300, maxExp: 1399, resetReward: 650 },
+                { tier: 'Bạch Kim', star: 5, name: '⚪ Bạch Kim 5', minExp: 1400, maxExp: 1499, resetReward: 700 },
+                { tier: 'Kim Cương', star: 1, name: '💎 Kim Cương 1', minExp: 1500, maxExp: 1649, resetReward: 800 },
+                { tier: 'Kim Cương', star: 2, name: '💎 Kim Cương 2', minExp: 1650, maxExp: 1799, resetReward: 900 },
+                { tier: 'Kim Cương', star: 3, name: '💎 Kim Cương 3', minExp: 1800, maxExp: 1949, resetReward: 1000 },
+                { tier: 'Kim Cương', star: 4, name: '💎 Kim Cương 4', minExp: 1950, maxExp: 2099, resetReward: 1100 },
+                { tier: 'Kim Cương', star: 5, name: '💎 Kim Cương 5', minExp: 2100, maxExp: 2249, resetReward: 1200 },
+                { tier: 'Huyền Thoại', star: 1, name: '🔥 Huyền Thoại 1', minExp: 2250, maxExp: 2499, resetReward: 1500 },
+                { tier: 'Huyền Thoại', star: 2, name: '🔥 Huyền Thoại 2', minExp: 2500, maxExp: 2749, resetReward: 2000 },
+                { tier: 'Huyền Thoại', star: 3, name: '🔥 Huyền Thoại 3', minExp: 2750, maxExp: 2999, resetReward: 2500 },
+                { tier: 'Huyền Thoại', star: 4, name: '🔥 Huyền Thoại 4', minExp: 3000, maxExp: 3249, resetReward: 3000 },
+                { tier: 'Huyền Thoại', star: 5, name: '🔥 Huyền Thoại 5', minExp: 3250, maxExp: 3499, resetReward: 3500 },
+                { tier: 'Lửa Tím', star: 1, name: '💜 Lửa Tím 1', minExp: 8500, maxExp: 8749, resetReward: 5000 },
+                { tier: 'Lửa Tím', star: 2, name: '💜 Lửa Tím 2', minExp: 8750, maxExp: 8999, resetReward: 6000 },
+                { tier: 'Lửa Tím', star: 3, name: '💜 Lửa Tím 3', minExp: 9000, maxExp: 9249, resetReward: 7000 },
+                { tier: 'Lửa Tím', star: 4, name: '💜 Lửa Tím 4', minExp: 9250, maxExp: 9499, resetReward: 8000 },
+                { tier: 'Lửa Tím', star: 5, name: '💜 Lửa Tím 5', minExp: 9500, maxExp: 9749, resetReward: 10000 }
+            ];
+
+            // STREAK REWARDS
             const streakRewards = [
                 { day: 2, exp: 20, diamonds: 5, stars: 1, emoji: '🎮', name: 'Game thủ' },
                 { day: 3, exp: 30, diamonds: 8, stars: 1, emoji: '🍦', name: 'Kem ngọt' },
@@ -1304,52 +1301,7 @@
                 { day: 70, exp: 700, diamonds: 900, stars: 12, emoji: '🧥', name: 'Áo' },
                 { day: 80, exp: 800, diamonds: 1200, stars: 15, emoji: '🎂', name: 'Sinh nhật' },
                 { day: 90, exp: 900, diamonds: 1500, stars: 18, emoji: '🕶️', name: 'Kính' },
-                { day: 100, exp: 5000, diamonds: 5000, stars: 50, emoji: '💜', name: 'ĐẠI TIỆC LỬA TÍM' },
-                { day: 120, exp: 1000, diamonds: 2000, stars: 20, emoji: '🚗', name: 'Xe hơi' },
-                { day: 150, exp: 1500, diamonds: 3000, stars: 30, emoji: '🏠', name: 'Nhà' },
-                { day: 180, exp: 2000, diamonds: 4000, stars: 40, emoji: '✈️', name: 'Máy bay' },
-                { day: 200, exp: 3000, diamonds: 6000, stars: 60, emoji: '🚀', name: 'Tên lửa' },
-                { day: 250, exp: 4000, diamonds: 8000, stars: 80, emoji: '🛸', name: 'UFO' },
-                { day: 300, exp: 6000, diamonds: 10000, stars: 100, emoji: '🌌', name: 'Thiên hà' },
-                { day: 350, exp: 8000, diamonds: 15000, stars: 150, emoji: '⚡', name: 'Sấm sét' },
-                { day: 400, exp: 10000, diamonds: 20000, stars: 200, emoji: '👁️', name: 'Con mắt' },
-                { day: 450, exp: 15000, diamonds: 30000, stars: 300, emoji: '👽', name: 'Người ngoài hành tinh' },
-                { day: 500, exp: 50000, diamonds: 100000, stars: 1000, emoji: '🔥🔥', name: 'SIÊU LỬA TÍM', special: 'superPurplefire' }
-            ];
-
-            // SHOP ITEMS
-            const shopItems = [
-                { id: 'exp_small', name: '20 EXP', emoji: '✨', price: 20, type: 'exp', value: 20 },
-                { id: 'exp_medium', name: '50 EXP', emoji: '✨✨', price: 45, type: 'exp', value: 50 },
-                { id: 'exp_large', name: '100 EXP', emoji: '✨✨✨', price: 80, type: 'exp', value: 100 },
-                { id: 'diamond_small', name: '10 💎', emoji: '💎', price: 5, type: 'diamonds', value: 10 },
-                { id: 'diamond_medium', name: '50 💎', emoji: '💎💎', price: 20, type: 'diamonds', value: 50 },
-                { id: 'diamond_large', name: '200 💎', emoji: '💎💎💎', price: 70, type: 'diamonds', value: 200 },
-                { id: 'star_small', name: '5 ⭐', emoji: '⭐', price: 30, type: 'stars', value: 5 },
-                { id: 'star_medium', name: '20 ⭐', emoji: '⭐⭐', price: 100, type: 'stars', value: 20 },
-                { id: 'star_large', name: '50 ⭐', emoji: '⭐⭐⭐', price: 200, type: 'stars', value: 50 },
-                { id: 'boost', name: 'Boost Streak', emoji: '⚡', price: 50, type: 'boost', value: 1 },
-                { id: 'super_boost', name: 'Super Boost', emoji: '⚡⚡', price: 200, type: 'boost', value: 5 },
-                { id: 'theme_basic', name: 'Theme Cơ bản', emoji: '🎨', price: 30, type: 'theme' },
-                { id: 'theme_vip', name: 'Theme VIP', emoji: '🎭', price: 100, type: 'theme' },
-                { id: 'pet_cat', name: 'Mèo', emoji: '🐱', price: 80, type: 'pet' },
-                { id: 'pet_dog', name: 'Chó', emoji: '🐶', price: 80, type: 'pet' },
-                { id: 'pet_dragon', name: 'Rồng', emoji: '🐉', price: 200, type: 'pet' },
-                { id: 'badge_bronze', name: 'Huy hiệu Đồng', emoji: '🏅', price: 50, type: 'badge' },
-                { id: 'badge_silver', name: 'Huy hiệu Bạc', emoji: '🥈', price: 150, type: 'badge' },
-                { id: 'badge_gold', name: 'Huy hiệu Vàng', emoji: '🥇', price: 300, type: 'badge' },
-                { id: 'badge_platinum', name: 'Huy hiệu Bạch kim', emoji: '🏆', price: 500, type: 'badge' },
-                { id: 'purplefire', name: 'Lửa Tím', emoji: '🔥', price: 300, type: 'purplefire', streakRequired: 30 },
-                { id: 'super_purplefire', name: 'Siêu Lửa Tím', emoji: '🔥🔥', price: 1000, type: 'superPurplefire', streakRequired: 100 },
-                { id: 'time_machine', name: 'Cỗ máy thời gian', emoji: '⏰', price: 500, type: 'time' },
-                { id: 'double_exp', name: 'Double EXP 7 ngày', emoji: '2️⃣', price: 400, type: 'buff' },
-                { id: 'lucky_wheel', name: 'Vòng quay may mắn', emoji: '🎰', price: 150, type: 'gacha' },
-                { id: 'mystery_box', name: 'Hộp bí ẩn', emoji: '📦', price: 200, type: 'random' },
-                { id: 'rainbow', name: 'Cầu vồng', emoji: '🌈', price: 600, type: 'effect' },
-                { id: 'galaxy', name: 'Thiên hà', emoji: '🌌', price: 800, type: 'effect' },
-                { id: 'crown', name: 'Vương miện', emoji: '👑', price: 1000, type: 'title' },
-                { id: 'heart_emoji', name: 'Thả tim không giới hạn', emoji: '❤️', price: 200, type: 'heart_unlimited' },
-                { id: 'super_heart', name: 'Siêu tim', emoji: '💖', price: 500, type: 'super_heart' }
+                { day: 100, exp: 5000, diamonds: 5000, stars: 50, emoji: '💜', name: 'ĐẠI TIỆC LỬA TÍM' }
             ];
 
             function createNewAccount(name, password) {
@@ -1358,33 +1310,27 @@
                     password: password,
                     streak: 0,
                     exp: 0,
-                    diamonds: 50,
+                    diamonds: 100,
                     stars: 0,
-                    hearts: 100, // Số tim có thể gửi
-                    subjects: { toan: false, van: false, anh: false, khtn: false },
+                    cups: [],
+                    subjects: {
+                        toan: { theory: false, practice: false },
+                        van: { theory: false, practice: false },
+                        anh: { theory: false, practice: false },
+                        khtn: { theory: false, practice: false }
+                    },
                     lastDate: new Date().toDateString(),
                     todayCompleted: false,
                     inventory: [],
+                    pets: [],
+                    equippedPet: null,
                     purpleFire: false,
                     superPurpleFire: false,
-                    friends: [], // Không giới hạn
-                    chats: {}, // Lưu tin nhắn với từng bạn
-                    lastSeen: {}, // Lần cuối xem tin nhắn
-                    pets: [],
-                    badges: [],
-                    themes: [],
-                    effects: [],
-                    title: null,
                     buffs: {},
-                    stats: {
-                        totalTasks: 0,
-                        totalStreak: 0,
-                        highestStreak: 0,
-                        friendsAdded: 0,
-                        messagesSent: 0,
-                        heartsSent: 0,
-                        heartsReceived: 0
-                    }
+                    friends: [],
+                    resetHistory: [],
+                    highestStreakEver: 0,
+                    totalEarned: { exp: 0, diamonds: 0 }
                 };
             }
 
@@ -1396,20 +1342,53 @@
             }
 
             function getNextRankExp(exp) {
-                let currentRank = getRank(exp);
                 for (let i = 0; i < rankSystem.length; i++) {
-                    if (rankSystem[i].minExp > exp) return rankSystem[i].minExp;
+                    if (exp < rankSystem[i].minExp) return rankSystem[i].minExp;
                 }
                 return rankSystem[rankSystem.length - 1].maxExp;
             }
 
-            // Format thời gian
-            function getCurrentTime() {
-                const now = new Date();
-                return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            function calculateBuffs(user) {
+                let buffs = { exp: 1.0, diamond: 1.0, streak: 1.0, luck: false };
+                
+                if (user.equippedPet) {
+                    const pet = [...NORMAL_PETS, ...MYTHICAL_PETS].find(p => p.id === user.equippedPet);
+                    if (pet && pet.buff) {
+                        buffs.exp *= (pet.buff.exp || 1.0);
+                        buffs.diamond *= (pet.buff.diamond || 1.0);
+                        buffs.streak *= (pet.buff.streak || 1.0);
+                        buffs.luck = buffs.luck || pet.buff.luck;
+                        
+                        if (pet.buff.rebirth) user.buffs.rebirth = true;
+                        if (pet.buff.steal) user.buffs.canSteal = true;
+                        if (pet.buff.defense) user.buffs.streakProtect = true;
+                        if (pet.buff.triple) user.buffs.tripleReward = true;
+                    }
+                }
+                
+                return buffs;
             }
 
-            // DOM
+            function isSubjectComplete(user, subject) {
+                return user.subjects[subject]?.theory && user.subjects[subject]?.practice;
+            }
+
+            function calculateReward(baseExp, baseDiamonds, user) {
+                const buffs = calculateBuffs(user);
+                return {
+                    exp: Math.floor(baseExp * buffs.exp),
+                    diamonds: Math.floor(baseDiamonds * buffs.diamond)
+                };
+            }
+
+            function getDaysUntilReset() {
+                const now = new Date();
+                const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+                const diffTime = nextMonth - now;
+                return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
+
+            // DOM Elements
             const authTabs = document.getElementById('authTabs');
             const registerTab = document.getElementById('registerTab');
             const loginTab = document.getElementById('loginTab');
@@ -1417,68 +1396,58 @@
             const loginSection = document.getElementById('loginSection');
             const mainApp = document.getElementById('mainApp');
             
-            // Register
             const regUsername = document.getElementById('regUsername');
             const regPassword = document.getElementById('regPassword');
             const regConfirmPassword = document.getElementById('regConfirmPassword');
             const registerBtn = document.getElementById('registerBtn');
             
-            // Login
             const loginUsername = document.getElementById('loginUsername');
             const loginPassword = document.getElementById('loginPassword');
             const loginBtn = document.getElementById('loginBtn');
             
-            // Logout
             const logoutBtn = document.getElementById('logoutBtn');
             
-            // Navigation
             const navTabs = document.querySelectorAll('.nav-tab');
             const sections = document.querySelectorAll('.section');
             
-            // Friend
-            const searchFriendInput = document.getElementById('searchFriendInput');
-            const searchFriendBtn = document.getElementById('searchFriendBtn');
-            const searchFriendResult = document.getElementById('searchFriendResult');
-            const friendListContainer = document.getElementById('friendListContainer');
-            const friendCount = document.getElementById('friendCount');
-            
-            // Chat
-            const chatFriendList = document.getElementById('chatFriendList');
-            const chatBox = document.getElementById('chatBox');
-            const noChatSelected = document.getElementById('noChatSelected');
-            const currentChatFriend = document.getElementById('currentChatFriend');
-            const chatMessages = document.getElementById('chatMessages');
-            const chatInput = document.getElementById('chatInput');
-            const onlineCount = document.getElementById('onlineCount');
-            
-            // Main
             const userNameDisplay = document.getElementById('userNameDisplay');
             const streakNum = document.getElementById('streakNum');
             const fireIcon = document.getElementById('fireIcon');
             const diamondNum = document.getElementById('diamondNum');
             const expNum = document.getElementById('expNum');
             const starNum = document.getElementById('starNum');
+            const cupNum = document.getElementById('cupNum');
             const rankName = document.getElementById('rankName');
             const expDisplay = document.getElementById('expDisplay');
             const expBar = document.getElementById('expBar');
+            const daysUntilReset = document.getElementById('daysUntilReset');
+            const resetDays = document.getElementById('resetDays');
+            const buffBar = document.getElementById('buffBar');
+            const currentPetDisplay = document.getElementById('currentPetDisplay');
             const milestoneBox = document.getElementById('milestoneBox');
-            const taskList = document.getElementById('taskList');
+            const subjectDetails = document.getElementById('subjectDetails');
             const warningMsg = document.getElementById('warningMsg');
-            const subjectItems = document.querySelectorAll('.subject');
+            const petInventory = document.getElementById('petInventory');
+            const mythicalPets = document.getElementById('mythicalPets');
+            const petShop = document.getElementById('petShop');
+            const friendLeaderboard = document.getElementById('friendLeaderboard');
+            const searchFriendInput = document.getElementById('searchFriendInput');
+            const searchFriendBtn = document.getElementById('searchFriendBtn');
+            const searchFriendResult = document.getElementById('searchFriendResult');
+            const friendListContainer = document.getElementById('friendListContainer');
+            const cupShowcase = document.getElementById('cupShowcase');
+            const globalLeaderboard = document.getElementById('globalLeaderboard');
             const shopGrid = document.getElementById('shopGrid');
+            const inventoryGrid = document.getElementById('inventoryGrid');
 
-            // Load dữ liệu từ localStorage
+            // Load data
             const savedAccounts = localStorage.getItem('accounts');
             if (savedAccounts) {
                 accounts = JSON.parse(savedAccounts);
-                // Khởi tạo chats cho các account cũ
-                Object.keys(accounts).forEach(key => {
-                    if (!accounts[key].chats) accounts[key].chats = {};
-                    if (!accounts[key].lastSeen) accounts[key].lastSeen = {};
-                    if (!accounts[key].hearts) accounts[key].hearts = 100;
-                });
             }
 
+            // ===== PHẦN ĐĂNG KÝ/ĐĂNG NHẬP =====
+            
             // Tab chuyển đổi
             registerTab.addEventListener('click', () => {
                 registerTab.classList.add('active');
@@ -1492,35 +1461,6 @@
                 registerTab.classList.remove('active');
                 loginSection.style.display = 'block';
                 registerSection.style.display = 'none';
-            });
-
-            // Navigation
-            navTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    navTabs.forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    const sectionId = tab.dataset.section;
-                    sections.forEach(s => s.classList.remove('active'));
-                    
-                    switch(sectionId) {
-                        case 'home':
-                            document.getElementById('homeSection').classList.add('active');
-                            break;
-                        case 'friends':
-                            document.getElementById('friendsSection').classList.add('active');
-                            updateFriendList();
-                            break;
-                        case 'chat':
-                            document.getElementById('chatSection').classList.add('active');
-                            updateChatList();
-                            break;
-                        case 'shop':
-                            document.getElementById('shopSection').classList.add('active');
-                            renderShop();
-                            break;
-                    }
-                });
             });
 
             // ĐĂNG KÝ
@@ -1551,10 +1491,8 @@
                 
                 alert('Đăng ký thành công! Mời bạn đăng nhập');
                 
-                // Chuyển sang tab đăng nhập
                 loginTab.click();
                 
-                // Xóa form đăng ký
                 regUsername.value = '';
                 regPassword.value = '';
                 regConfirmPassword.value = '';
@@ -1577,22 +1515,19 @@
                 currentUser = name;
                 onlineUsers.add(name);
                 
-                // Ẩn các phần auth
                 authTabs.style.display = 'none';
                 registerSection.style.display = 'none';
                 loginSection.style.display = 'none';
                 
-                // Hiện main app
                 mainApp.style.display = 'block';
                 
                 userNameDisplay.textContent = name;
                 
-                // Kiểm tra lửa tím
                 const user = accounts[name];
-                if (user.inventory.includes('purplefire') || user.streak >= 50) {
+                if (user.inventory?.includes('purplefire') || user.streak >= 50) {
                     user.purpleFire = true;
                 }
-                if (user.inventory.includes('superPurplefire') || user.streak >= 500) {
+                if (user.inventory?.includes('superPurplefire') || user.streak >= 500) {
                     user.superPurpleFire = true;
                 }
                 
@@ -1603,12 +1538,6 @@
                     fireIcon.classList.add('purple');
                 }
                 
-                // Bắt đầu interval cập nhật online status
-                startOnlineStatus();
-                
-                renderShop();
-                updateFriendList();
-                updateChatList();
                 updateUI();
             });
 
@@ -1619,61 +1548,434 @@
                 }
                 currentUser = null;
                 
-                // Dừng interval
-                if (messageInterval) {
-                    clearInterval(messageInterval);
-                    messageInterval = null;
-                }
-                
-                // Hiện lại phần auth
                 authTabs.style.display = 'flex';
                 registerSection.style.display = 'block';
                 loginSection.style.display = 'none';
                 
-                // Ẩn main app
                 mainApp.style.display = 'none';
                 
-                // Reset active tab
                 registerTab.classList.add('active');
                 loginTab.classList.remove('active');
                 
-                // Xóa form login
                 loginUsername.value = '';
                 loginPassword.value = '';
             });
 
-            // Online status simulation
-            function startOnlineStatus() {
-                // Random một số bạn bè online
-                setInterval(() => {
-                    if (!currentUser) return;
+            // Navigation
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
                     
-                    const user = accounts[currentUser];
-                    onlineUsers.clear();
-                    onlineUsers.add(currentUser);
+                    const sectionId = tab.dataset.section;
+                    sections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(sectionId + 'Section').classList.add('active');
                     
-                    // Random 30% bạn bè online
-                    user.friends.forEach(friend => {
-                        if (Math.random() < 0.3) {
-                            onlineUsers.add(friend);
+                    if (currentUser) {
+                        if (sectionId === 'study') renderSubjects();
+                        if (sectionId === 'pets') renderPets();
+                        if (sectionId === 'friends') renderFriendLeaderboard();
+                        if (sectionId === 'rank') renderCups();
+                        if (sectionId === 'shop') renderShop();
+                    }
+                });
+            });
+
+            // ===== CÁC HÀM RENDER =====
+
+            function renderSubjects() {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                const subjects = [
+                    { id: 'toan', name: 'Toán', icon: '🧮', theory: '📘 Lý thuyết', practice: '📝 Bài tập' },
+                    { id: 'van', name: 'Văn', icon: '📖', theory: '📚 Đọc hiểu', practice: '✍️ Viết' },
+                    { id: 'anh', name: 'Anh', icon: '🇬🇧', theory: '🗣️ Ngữ pháp', practice: '🎧 Nghe' },
+                    { id: 'khtn', name: 'KHTN', icon: '🔬', theory: '🧪 Thí nghiệm', practice: '📊 Tính toán' }
+                ];
+                
+                let html = '';
+                subjects.forEach(subj => {
+                    const data = user.subjects[subj.id];
+                    const theoryDone = data?.theory || false;
+                    const practiceDone = data?.practice || false;
+                    
+                    html += `
+                        <div class="subject-detail">
+                            <div class="subject-header">
+                                <span class="subject-icon">${subj.icon}</span>
+                                <span class="subject-title">${subj.name}</span>
+                            </div>
+                            
+                            <div class="sub-tasks">
+                                <div class="sub-task ${theoryDone ? 'done' : ''}" onclick="toggleSubjectPart('${subj.id}', 'theory')">
+                                    <div class="sub-task-emoji">📘</div>
+                                    <div class="sub-task-name">Lý thuyết</div>
+                                </div>
+                                <div class="sub-task ${practiceDone ? 'done' : ''}" onclick="toggleSubjectPart('${subj.id}', 'practice')">
+                                    <div class="sub-task-emoji">📝</div>
+                                    <div class="sub-task-name">Bài tập</div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-bar-container">
+                                <div class="progress-label">
+                                    <span>Hoàn thành</span>
+                                    <span>${(theoryDone && practiceDone) ? '✅' : (theoryDone || practiceDone) ? '⏳' : '❌'}</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${(theoryDone && practiceDone) ? '100%' : (theoryDone || practiceDone) ? '50%' : '0%'}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                subjectDetails.innerHTML = html;
+                
+                const allComplete = ['toan', 'van', 'anh', 'khtn'].every(subj => 
+                    isSubjectComplete(user, subj)
+                );
+                
+                if (!allComplete) {
+                    warningMsg.innerHTML = `⚠️ Hoàn thành đủ 4 môn để +1 streak`;
+                } else {
+                    warningMsg.innerHTML = `✅ ĐÃ ĐỦ 4 MÔN! Click để nhận thưởng`;
+                }
+            }
+
+            window.toggleSubjectPart = function(subject, part) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                if (!user.subjects[subject]) user.subjects[subject] = { theory: false, practice: false };
+                user.subjects[subject][part] = !user.subjects[subject][part];
+                
+                checkDailyCompletion(user);
+                
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                renderSubjects();
+                updateUI();
+            };
+
+            function checkDailyCompletion(user) {
+                const allComplete = ['toan', 'van', 'anh', 'khtn'].every(subj => 
+                    isSubjectComplete(user, subj)
+                );
+                
+                const today = new Date().toDateString();
+                
+                if (allComplete && user.lastDate !== today) {
+                    const reward = calculateReward(50, 20, user);
+                    
+                    user.exp += reward.exp;
+                    user.diamonds += reward.diamonds;
+                    user.stars = (user.stars || 0) + 5;
+                    user.streak += 1;
+                    
+                    user.totalEarned.exp += reward.exp;
+                    user.totalEarned.diamonds += reward.diamonds;
+                    
+                    if (user.streak > (user.highestStreakEver || 0)) {
+                        user.highestStreakEver = user.streak;
+                    }
+                    
+                    user.lastDate = today;
+                    
+                    // Kiểm tra streak rewards
+                    streakRewards.forEach(reward => {
+                        if (user.streak === reward.day) {
+                            user.exp += reward.exp;
+                            user.diamonds += reward.diamonds;
+                            user.stars = (user.stars || 0) + (reward.stars || 0);
+                            
+                            if (reward.special === 'purplefire') {
+                                user.purpleFire = true;
+                            }
+                            
+                            alert(`🎉 ĐẠT MỐC ${reward.day} NGÀY!\nNhận: ${reward.exp} EXP + ${reward.diamonds} 💎 + ${reward.stars || 0} ⭐`);
                         }
                     });
                     
-                    updateChatList();
-                }, 10000);
+                    alert(`✅ HOÀN THÀNH! Nhận: ${reward.exp} EXP, ${reward.diamonds} 💎, 5 ⭐`);
+                }
             }
 
-            // TÌM KIẾM BẠN BÈ
+            function renderPets() {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                if (!user.pets) user.pets = [];
+                
+                // Pet thường
+                let petHtml = '';
+                user.pets.forEach(petId => {
+                    const pet = [...NORMAL_PETS, ...MYTHICAL_PETS].find(p => p.id === petId);
+                    if (pet) {
+                        petHtml += `
+                            <div class="pet-card ${user.equippedPet === petId ? 'equipped' : ''}" onclick="equipPet('${petId}')">
+                                <div class="pet-emoji">${pet.emoji}</div>
+                                <div class="pet-name">${pet.name}</div>
+                                <div class="pet-buff">${pet.buff.exp ? '✨ x' + pet.buff.exp : ''}</div>
+                            </div>
+                        `;
+                    }
+                });
+                petInventory.innerHTML = petHtml || '<div style="text-align: center; padding: 20px;">Chưa có pet</div>';
+                
+                // Pet huyền thoại
+                let mythHtml = '';
+                MYTHICAL_PETS.forEach(pet => {
+                    const owned = user.pets.includes(pet.id);
+                    mythHtml += `
+                        <div class="pet-card" onclick="${owned ? `equipPet('${pet.id}')` : `buyMythicalPet('${pet.id}')`}">
+                            <div class="pet-emoji">${pet.emoji}</div>
+                            <div class="pet-name">${pet.name}</div>
+                            <div class="pet-buff">${pet.description}</div>
+                            <div class="pet-price">${owned ? 'Đã sở hữu' : '💎' + pet.price}</div>
+                            <div class="pet-mythical">👑</div>
+                        </div>
+                    `;
+                });
+                mythicalPets.innerHTML = mythHtml;
+                
+                // Shop pet
+                let shopHtml = '';
+                NORMAL_PETS.forEach(pet => {
+                    if (!user.pets.includes(pet.id)) {
+                        shopHtml += `
+                            <div class="shop-item" onclick="buyPet('${pet.id}')">
+                                <div class="shop-item-emoji">${pet.emoji}</div>
+                                <div class="shop-item-name">${pet.name}</div>
+                                <div class="shop-item-price">💎${pet.price}</div>
+                            </div>
+                        `;
+                    }
+                });
+                petShop.innerHTML = shopHtml || '<div style="text-align: center;">Đã mua hết pet!</div>';
+            }
+
+            window.buyPet = function(petId) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                const pet = NORMAL_PETS.find(p => p.id === petId);
+                
+                if (!pet) return;
+                
+                if (user.diamonds >= pet.price) {
+                    user.diamonds -= pet.price;
+                    if (!user.pets) user.pets = [];
+                    user.pets.push(petId);
+                    
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                    renderPets();
+                    updateUI();
+                    alert(`✅ Mua thành công ${pet.name}!`);
+                } else {
+                    alert('❌ Không đủ kim cương!');
+                }
+            };
+
+            window.buyMythicalPet = function(petId) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                const pet = MYTHICAL_PETS.find(p => p.id === petId);
+                
+                if (!pet) return;
+                
+                if (user.diamonds >= pet.price) {
+                    user.diamonds -= pet.price;
+                    if (!user.pets) user.pets = [];
+                    user.pets.push(petId);
+                    
+                    user.stars = (user.stars || 0) + 1000;
+                    user.exp += 5000;
+                    
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                    renderPets();
+                    updateUI();
+                    alert(`✨ MUA PET HUYỀN THOẠI! Nhận thêm 1000⭐ và 5000 EXP!`);
+                } else {
+                    alert('❌ Không đủ kim cương!');
+                }
+            };
+
+            window.equipPet = function(petId) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                user.equippedPet = user.equippedPet === petId ? null : petId;
+                
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                renderPets();
+                updateUI();
+            };
+
+            function renderFriendLeaderboard() {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                const friends = [currentUser, ...(user.friends || [])]
+                    .map(name => ({ name, data: accounts[name] }))
+                    .filter(f => f.data)
+                    .sort((a, b) => (b.data?.streak || 0) - (a.data?.streak || 0));
+                
+                let html = '';
+                friends.forEach((f, index) => {
+                    html += `
+                        <div class="friend-leaderboard-item">
+                            <div class="friend-rank-badge">${index + 1}</div>
+                            <span class="friend-name">${f.name} ${index === 0 ? '👑' : ''}</span>
+                            <span style="flex: 1; text-align: right; color: gold;">🔥 ${f.data?.streak || 0}</span>
+                        </div>
+                    `;
+                });
+                
+                friendLeaderboard.innerHTML = html;
+            }
+
+            function renderCups() {
+                const now = new Date();
+                const month = now.getMonth();
+                
+                let html = '';
+                for (let i = 0; i < 3; i++) {
+                    const cupMonth = (month + i) % 12;
+                    const cup = MONTHLY_CUPS[cupMonth];
+                    html += `
+                        <div class="cup-item">
+                            <div class="cup-emoji">${cup.emoji}</div>
+                            <div class="cup-name">${cup.name}</div>
+                        </div>
+                    `;
+                }
+                
+                cupShowcase.innerHTML = html;
+                
+                // Global leaderboard
+                let globalHtml = '';
+                const topPlayers = Object.values(accounts)
+                    .sort((a, b) => (b?.streak || 0) - (a?.streak || 0))
+                    .slice(0, 10);
+                
+                topPlayers.forEach((player, index) => {
+                    globalHtml += `
+                        <div class="friend-leaderboard-item">
+                            <div class="friend-rank-badge">${index + 1}</div>
+                            <span class="friend-name">${player?.name || '???'}</span>
+                            <span style="flex: 1; text-align: right; color: gold;">🔥 ${player?.streak || 0}</span>
+                        </div>
+                    `;
+                });
+                
+                globalLeaderboard.innerHTML = globalHtml || '<div style="text-align: center;">Chưa có dữ liệu</div>';
+            }
+
+            function renderShop() {
+                if (!currentUser) return;
+                
+                let html = '';
+                const shuffled = [...shopItems].sort(() => 0.5 - Math.random());
+                const selectedItems = shuffled.slice(0, 12);
+                
+                selectedItems.forEach(item => {
+                    html += `
+                        <div class="shop-item" onclick="buyShopItem(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                            <div class="shop-item-emoji">${item.emoji}</div>
+                            <div class="shop-item-name">${item.name}</div>
+                            <div class="shop-item-price">💎${item.price}</div>
+                        </div>
+                    `;
+                });
+                
+                shopGrid.innerHTML = html;
+                
+                // Inventory
+                const user = accounts[currentUser];
+                if (!user.inventory) user.inventory = [];
+                
+                let invHtml = '';
+                user.inventory.forEach((item, index) => {
+                    if (typeof item === 'object') {
+                        invHtml += `
+                            <div class="inventory-item" onclick="useItem(${index})">
+                                <div class="inventory-item-emoji">${item.emoji || '📦'}</div>
+                                <div class="inventory-item-name">${item.name}</div>
+                                <div class="inventory-item-count">${item.active ? '✅' : '💤'}</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                inventoryGrid.innerHTML = invHtml || '<div style="text-align: center; grid-column: span 4;">Kho đồ trống</div>';
+            }
+
+            window.buyShopItem = function(item) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                
+                if (user.diamonds >= item.price) {
+                    user.diamonds -= item.price;
+                    
+                    if (!user.inventory) user.inventory = [];
+                    
+                    const newItem = {
+                        ...item,
+                        active: false,
+                        purchased: new Date().toDateString()
+                    };
+                    
+                    user.inventory.push(newItem);
+                    
+                    if (item.type === 'exp') {
+                        user.exp += item.value;
+                    } else if (item.type === 'diamonds') {
+                        user.diamonds += item.value;
+                    } else if (item.type === 'stars') {
+                        user.stars = (user.stars || 0) + item.value;
+                    } else if (item.type === 'boost') {
+                        user.streak += item.value;
+                    }
+                    
+                    localStorage.setItem('accounts', JSON.stringify(accounts));
+                    renderShop();
+                    updateUI();
+                    alert(`✅ Mua thành công: ${item.name}`);
+                } else {
+                    alert('❌ Không đủ kim cương!');
+                }
+            };
+
+            window.useItem = function(index) {
+                if (!currentUser) return;
+                
+                const user = accounts[currentUser];
+                const item = user.inventory[index];
+                
+                if (item.type === 'exp_boost' || item.type === 'diamond_boost') {
+                    item.active = !item.active;
+                    alert(`${item.active ? '✅ Đã bật' : '💤 Đã tắt'} ${item.name}`);
+                }
+                
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                renderShop();
+                updateUI();
+            };
+
+            // Tìm bạn bè
             searchFriendBtn.addEventListener('click', () => {
                 const searchName = searchFriendInput.value.trim();
                 
                 if (!searchName) {
-                    searchFriendResult.innerHTML = '❌ Vui lòng nhập tên cần tìm';
+                    searchFriendResult.innerHTML = '❌ Vui lòng nhập tên';
                     return;
                 }
                 
                 if (!accounts[searchName]) {
-                    searchFriendResult.innerHTML = '❌ Không tìm thấy tài khoản này';
+                    searchFriendResult.innerHTML = '❌ Không tìm thấy';
                     return;
                 }
                 
@@ -1683,400 +1985,51 @@
                 }
                 
                 const user = accounts[currentUser];
+                if (!user.friends) user.friends = [];
+                
                 if (user.friends.includes(searchName)) {
-                    searchFriendResult.innerHTML = '✅ Đã là bạn bè rồi';
+                    searchFriendResult.innerHTML = '✅ Đã là bạn bè';
                     return;
                 }
                 
                 const friendRank = getRank(accounts[searchName].exp);
                 searchFriendResult.innerHTML = `
                     ✅ Tìm thấy: ${searchName}<br>
-                    🔥 Streak: ${accounts[searchName].streak} ngày<br>
+                    🔥 Streak: ${accounts[searchName].streak}<br>
                     🏆 Rank: ${friendRank.name}<br>
-                    ⭐ Sao: ${accounts[searchName].stars || 0}<br>
-                    <button class="btn purple small" style="margin-top: 10px;" onclick="addFriend('${searchName}')">➕ KẾT BẠN</button>
-                    <button class="btn pink small" style="margin-top: 10px;" onclick="sendFriendRequest('${searchName}')">💌 GỬI LỜI MỜI</button>
+                    <button class="btn purple small" onclick="addFriend('${searchName}')">➕ KẾT BẠN</button>
                 `;
             });
 
-            // Hàm thêm bạn bè (để global cho onclick)
             window.addFriend = function(friendName) {
+                if (!currentUser) return;
+                
                 const user = accounts[currentUser];
+                if (!user.friends) user.friends = [];
+                
                 if (!user.friends.includes(friendName)) {
                     user.friends.push(friendName);
                     
-                    // Khởi tạo chat cho bạn mới
-                    if (!user.chats) user.chats = {};
-                    if (!user.chats[friendName]) {
-                        user.chats[friendName] = [];
-                    }
-                    
-                    // Thêm vào friend của người kia
+                    if (!accounts[friendName].friends) accounts[friendName].friends = [];
                     if (!accounts[friendName].friends.includes(currentUser)) {
                         accounts[friendName].friends.push(currentUser);
                     }
                     
-                    // Khởi tạo chat cho người kia
-                    if (!accounts[friendName].chats) accounts[friendName].chats = {};
-                    if (!accounts[friendName].chats[currentUser]) {
-                        accounts[friendName].chats[currentUser] = [];
-                    }
-                    
-                    user.stats.friendsAdded++;
                     localStorage.setItem('accounts', JSON.stringify(accounts));
                     
                     searchFriendResult.innerHTML = `✅ Đã kết bạn với ${friendName}`;
                     searchFriendInput.value = '';
                     
-                    // Gửi tin nhắn tự động
-                    sendAutoMessage(friendName, '👋 Chào bạn, mình vừa kết bạn!');
-                    
+                    renderFriendLeaderboard();
                     updateFriendList();
-                    updateChatList();
                 }
             };
 
-            // Gửi lời mời kết bạn
-            window.sendFriendRequest = function(friendName) {
-                alert(`💌 Đã gửi lời mời kết bạn đến ${friendName}`);
-            };
-
-            // Gửi tin nhắn tự động
-            function sendAutoMessage(friendName, message) {
-                const user = accounts[currentUser];
-                const time = getCurrentTime();
-                
-                if (!user.chats) user.chats = {};
-                if (!user.chats[friendName]) user.chats[friendName] = [];
-                
-                user.chats[friendName].push({
-                    sender: currentUser,
-                    message: message,
-                    time: time,
-                    type: 'text',
-                    hearts: []
-                });
-                
-                // Lưu vào chat của người nhận
-                if (!accounts[friendName].chats) accounts[friendName].chats = {};
-                if (!accounts[friendName].chats[currentUser]) accounts[friendName].chats[currentUser] = [];
-                
-                accounts[friendName].chats[currentUser].push({
-                    sender: currentUser,
-                    message: message,
-                    time: time,
-                    type: 'text',
-                    hearts: []
-                });
-                
-                localStorage.setItem('accounts', JSON.stringify(accounts));
-            }
-
-            // Xóa bạn bè
-            window.removeFriend = function(friendName) {
-                if (confirm(`Xóa ${friendName} khỏi danh sách bạn bè?`)) {
-                    const user = accounts[currentUser];
-                    user.friends = user.friends.filter(f => f !== friendName);
-                    
-                    // Xóa chat
-                    if (user.chats && user.chats[friendName]) {
-                        delete user.chats[friendName];
-                    }
-                    
-                    // Xóa khỏi friend của người kia
-                    if (accounts[friendName]) {
-                        accounts[friendName].friends = accounts[friendName].friends.filter(f => f !== currentUser);
-                        if (accounts[friendName].chats && accounts[friendName].chats[currentUser]) {
-                            delete accounts[friendName].chats[currentUser];
-                        }
-                    }
-                    
-                    localStorage.setItem('accounts', JSON.stringify(accounts));
-                    
-                    if (currentChat === friendName) {
-                        closeChat();
-                    }
-                    
-                    updateFriendList();
-                    updateChatList();
-                }
-            };
-
-            // Xem thông tin bạn bè
-            window.viewFriend = function(friendName) {
-                const friend = accounts[friendName];
-                const friendRank = getRank(friend.exp);
-                alert(`👤 ${friendName}\n` +
-                      `🔥 Streak: ${friend.streak}\n` +
-                      `✨ EXP: ${friend.exp}\n` +
-                      `💎 Kim cương: ${friend.diamonds}\n` +
-                      `⭐ Sao: ${friend.stars || 0}\n` +
-                      `🏆 Rank: ${friendRank.name}\n` +
-                      `💬 Tin nhắn: ${friend.stats?.messagesSent || 0}\n` +
-                      `❤️ Tim gửi/nhận: ${friend.stats?.heartsSent || 0}/${friend.stats?.heartsReceived || 0}`);
-            };
-
-            // Gửi quà cho bạn
-            window.giftFriend = function(friendName) {
-                const amount = prompt('Nhập số kim cương muốn tặng (tối thiểu 10):', '10');
-                if (amount && !isNaN(amount) && parseInt(amount) >= 10) {
-                    const user = accounts[currentUser];
-                    const friend = accounts[friendName];
-                    
-                    if (user.diamonds >= parseInt(amount)) {
-                        user.diamonds -= parseInt(amount);
-                        friend.diamonds += parseInt(amount);
-                        localStorage.setItem('accounts', JSON.stringify(accounts));
-                        
-                        // Gửi tin nhắn thông báo
-                        sendAutoMessage(friendName, `🎁 Đã tặng bạn ${amount} 💎!`);
-                        
-                        alert(`✅ Đã tặng ${amount} 💎 cho ${friendName}`);
-                        updateUI();
-                        updateChatList();
-                    } else {
-                        alert('❌ Không đủ kim cương!');
-                    }
-                }
-            };
-
-            // Mở chat với bạn
-            window.openChat = function(friendName) {
-                currentChat = friendName;
-                currentChatFriend.textContent = `💬 Chat với ${friendName} ${onlineUsers.has(friendName) ? '🟢 Online' : '⚫ Offline'}`;
-                
-                chatBox.style.display = 'block';
-                noChatSelected.style.display = 'none';
-                
-                // Đánh dấu đã đọc
-                const user = accounts[currentUser];
-                if (!user.lastSeen) user.lastSeen = {};
-                user.lastSeen[friendName] = Date.now();
-                
-                loadMessages();
-                
-                // Bắt đầu interval load tin nhắn mới
-                if (messageInterval) clearInterval(messageInterval);
-                messageInterval = setInterval(loadMessages, 3000);
-            };
-
-            // Đóng chat
-            window.closeChat = function() {
-                currentChat = null;
-                chatBox.style.display = 'none';
-                noChatSelected.style.display = 'block';
-                if (messageInterval) {
-                    clearInterval(messageInterval);
-                    messageInterval = null;
-                }
-            };
-
-            // Load messages
-            function loadMessages() {
-                if (!currentChat || !currentUser) return;
-                
-                const user = accounts[currentUser];
-                if (!user.chats) user.chats = {};
-                if (!user.chats[currentChat]) user.chats[currentChat] = [];
-                
-                const messages = user.chats[currentChat];
-                let html = '';
-                
-                messages.forEach((msg, index) => {
-                    const isSent = msg.sender === currentUser;
-                    const heartsCount = msg.hearts ? msg.hearts.length : 0;
-                    
-                    html += `
-                        <div class="message ${isSent ? 'sent' : 'received'}">
-                            <div class="message-bubble">
-                                ${msg.type === 'heart' ? '❤️ ' : ''}${msg.message}
-                                ${heartsCount > 0 ? `<span class="message-heart" onclick="addHeartToMessage('${currentChat}', ${index})">❤️ ${heartsCount}</span>` : ''}
-                            </div>
-                            <div class="message-time">
-                                ${msg.time}
-                                ${!isSent ? `<span style="margin-left: 5px;" onclick="sendHeartToMessage('${currentChat}')">💗</span>` : ''}
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                chatMessages.innerHTML = html || '<div style="text-align: center; color: #b0c0ff; padding: 20px;">Chưa có tin nhắn</div>';
-                
-                // Scroll xuống cuối
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Cập nhật lastSeen
-                user.lastSeen[currentChat] = Date.now();
-            }
-
-            // Gửi tin nhắn
-            window.sendMessage = function() {
-                const message = chatInput.value.trim();
-                if (!message || !currentChat) return;
-                
-                const user = accounts[currentUser];
-                const time = getCurrentTime();
-                
-                if (!user.chats) user.chats = {};
-                if (!user.chats[currentChat]) user.chats[currentChat] = [];
-                
-                user.chats[currentChat].push({
-                    sender: currentUser,
-                    message: message,
-                    time: time,
-                    type: 'text',
-                    hearts: []
-                });
-                
-                // Lưu vào chat của người nhận
-                if (!accounts[currentChat].chats) accounts[currentChat].chats = {};
-                if (!accounts[currentChat].chats[currentUser]) accounts[currentChat].chats[currentUser] = [];
-                
-                accounts[currentChat].chats[currentUser].push({
-                    sender: currentUser,
-                    message: message,
-                    time: time,
-                    type: 'text',
-                    hearts: []
-                });
-                
-                // Cập nhật stats
-                if (!user.stats) user.stats = {};
-                user.stats.messagesSent = (user.stats.messagesSent || 0) + 1;
-                
-                chatInput.value = '';
-                localStorage.setItem('accounts', JSON.stringify(accounts));
-                
-                loadMessages();
-            };
-
-            // Gửi tim
-            window.sendHeart = function() {
-                if (!currentChat) return;
-                
-                const user = accounts[currentUser];
-                const time = getCurrentTime();
-                
-                // Kiểm tra số tim
-                if (user.hearts <= 0 && !user.inventory.includes('heart_unlimited')) {
-                    alert('❌ Bạn đã hết tim! Mua thêm trong shop nhé!');
-                    return;
-                }
-                
-                if (!user.inventory.includes('heart_unlimited')) {
-                    user.hearts = (user.hearts || 100) - 1;
-                }
-                
-                if (!user.chats) user.chats = {};
-                if (!user.chats[currentChat]) user.chats[currentChat] = [];
-                
-                const heartMsg = {
-                    sender: currentUser,
-                    message: '💗',
-                    time: time,
-                    type: 'heart',
-                    hearts: [currentUser]
-                };
-                
-                user.chats[currentChat].push(heartMsg);
-                
-                // Lưu vào chat của người nhận
-                if (!accounts[currentChat].chats) accounts[currentChat].chats = {};
-                if (!accounts[currentChat].chats[currentUser]) accounts[currentChat].chats[currentUser] = [];
-                
-                accounts[currentChat].chats[currentUser].push(heartMsg);
-                
-                // Cập nhật stats
-                if (!user.stats) user.stats = {};
-                user.stats.heartsSent = (user.stats.heartsSent || 0) + 1;
-                
-                if (!accounts[currentChat].stats) accounts[currentChat].stats = {};
-                accounts[currentChat].stats.heartsReceived = (accounts[currentChat].stats.heartsReceived || 0) + 1;
-                
-                localStorage.setItem('accounts', JSON.stringify(accounts));
-                
-                loadMessages();
-            };
-
-            // Thả tim vào tin nhắn
-            window.addHeartToMessage = function(friendName, messageIndex) {
-                const user = accounts[currentUser];
-                const messages = user.chats[friendName];
-                
-                if (messages && messages[messageIndex]) {
-                    if (!messages[messageIndex].hearts) {
-                        messages[messageIndex].hearts = [];
-                    }
-                    
-                    if (!messages[messageIndex].hearts.includes(currentUser)) {
-                        messages[messageIndex].hearts.push(currentUser);
-                        
-                        // Cập nhật cho người kia
-                        const friendMessages = accounts[friendName].chats[currentUser];
-                        if (friendMessages && friendMessages[messageIndex]) {
-                            if (!friendMessages[messageIndex].hearts) {
-                                friendMessages[messageIndex].hearts = [];
-                            }
-                            friendMessages[messageIndex].hearts.push(currentUser);
-                        }
-                        
-                        localStorage.setItem('accounts', JSON.stringify(accounts));
-                        loadMessages();
-                    }
-                }
-            };
-
-            // Gửi tim nhanh
-            window.sendHeartToMessage = function(friendName) {
-                sendHeart();
-            };
-
-            // Cập nhật danh sách chat
-            function updateChatList() {
-                const user = accounts[currentUser];
-                if (!user) return;
-                
-                let online = 0;
-                let html = '';
-                
-                user.friends.forEach(friend => {
-                    const friendData = accounts[friend];
-                    if (!friendData) return;
-                    
-                    const isOnline = onlineUsers.has(friend);
-                    if (isOnline) online++;
-                    
-                    // Đếm tin nhắn chưa đọc
-                    let unreadCount = 0;
-                    if (friendData.chats && friendData.chats[currentUser]) {
-                        const lastSeen = user.lastSeen?.[friend] || 0;
-                        unreadCount = friendData.chats[currentUser].filter(msg => {
-                            return msg.sender === friend && new Date(`2024-01-01 ${msg.time}`).getTime() > lastSeen;
-                        }).length;
-                    }
-                    
-                    html += `
-                        <div class="chat-friend-item ${currentChat === friend ? 'active' : ''} ${isOnline ? 'online' : ''}" onclick="openChat('${friend}')">
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <span>${friend}</span>
-                                ${isOnline ? '<span class="online-dot"></span>' : '<span class="offline-dot"></span>'}
-                                ${unreadCount > 0 ? `<span class="unread">${unreadCount}</span>` : ''}
-                            </div>
-                            <span class="friend-streak">🔥 ${friendData.streak}</span>
-                        </div>
-                    `;
-                });
-                
-                onlineCount.textContent = `${online} online`;
-                chatFriendList.innerHTML = html || '<div style="text-align: center; padding: 20px;">👥 Chưa có bạn bè</div>';
-            }
-
-            // Cập nhật danh sách bạn bè
             function updateFriendList() {
-                const user = accounts[currentUser];
-                if (!user) return;
+                if (!currentUser) return;
                 
-                friendCount.textContent = user.friends.length;
+                const user = accounts[currentUser];
+                if (!user.friends) user.friends = [];
                 
                 if (user.friends.length === 0) {
                     friendListContainer.innerHTML = '<div style="text-align: center; padding: 20px;">👥 Chưa có bạn bè</div>';
@@ -2087,344 +2040,94 @@
                 user.friends.forEach(friend => {
                     const friendData = accounts[friend];
                     if (friendData) {
-                        const friendRank = getRank(friendData.exp);
-                        const isOnline = onlineUsers.has(friend);
                         html += `
-                            <div class="friend-item ${isOnline ? 'online' : ''}">
-                                <div class="friend-info">
+                            <div class="friend-item">
+                                <div>
                                     <span class="friend-name">${friend}</span>
-                                    <span class="friend-streak">🔥 ${friendData.streak}</span>
-                                    <span class="friend-rank">${friendRank.tier}</span>
-                                    <span class="star-icon">⭐${friendData.stars || 0}</span>
-                                    ${isOnline ? '<span class="online-dot"></span>' : ''}
+                                    <span class="friend-streak"> 🔥 ${friendData.streak}</span>
                                 </div>
                                 <div class="friend-actions">
-                                    <button onclick="openChat('${friend}')">💬</button>
-                                    <button onclick="giftFriend('${friend}')">🎁</button>
-                                    <button onclick="viewFriend('${friend}')">👁️</button>
-                                    <button class="pink" onclick="sendHeartToFriend('${friend}')">❤️</button>
                                     <button onclick="removeFriend('${friend}')">❌</button>
                                 </div>
                             </div>
                         `;
                     }
                 });
+                
                 friendListContainer.innerHTML = html;
             }
 
-            // Gửi tim cho bạn (không cần vào chat)
-            window.sendHeartToFriend = function(friendName) {
-                const user = accounts[currentUser];
-                
-                if (user.hearts <= 0 && !user.inventory.includes('heart_unlimited')) {
-                    alert('❌ Bạn đã hết tim! Mua thêm trong shop nhé!');
-                    return;
-                }
-                
-                if (!user.inventory.includes('heart_unlimited')) {
-                    user.hearts = (user.hearts || 100) - 1;
-                }
-                
-                sendAutoMessage(friendName, '💗 Gửi bạn một trái tim!');
-                
-                user.stats.heartsSent = (user.stats.heartsSent || 0) + 1;
-                accounts[friendName].stats.heartsReceived = (accounts[friendName].stats.heartsReceived || 0) + 1;
-                
-                alert(`❤️ Đã gửi tim đến ${friendName}`);
-                updateUI();
-            };
-
-            // Render shop
-            function renderShop() {
-                const user = accounts[currentUser];
-                if (!user) return;
-                
-                let html = '';
-                
-                // Random 12 items mỗi lần load
-                const shuffled = [...shopItems].sort(() => 0.5 - Math.random());
-                const selectedItems = shuffled.slice(0, 12);
-                
-                selectedItems.forEach(item => {
-                    const canBuy = !item.streakRequired || user.streak >= item.streakRequired;
-                    html += `
-                        <div class="shop-item ${!canBuy ? 'streak-required' : ''}" 
-                             data-item='${JSON.stringify(item).replace(/'/g, "&apos;")}'
-                             onclick="buyItem(${JSON.stringify(item).replace(/'/g, "&apos;")})">
-                            <div class="shop-item-emoji">${item.emoji}</div>
-                            <div class="shop-item-name">${item.name}</div>
-                            <div class="shop-item-price">💎${item.price}</div>
-                            ${item.streakRequired ? `<div class="badge streak">🔥${item.streakRequired}+</div>` : ''}
-                        </div>
-                    `;
-                });
-                
-                shopGrid.innerHTML = html;
-            }
-
-            // Mua item
-            window.buyItem = function(item) {
+            window.removeFriend = function(friendName) {
                 if (!currentUser) return;
                 
-                const user = accounts[currentUser];
-                
-                if (item.streakRequired && user.streak < item.streakRequired) {
-                    alert(`❌ Cần streak ${item.streakRequired} ngày để mua item này!`);
-                    return;
-                }
-                
-                if (user.diamonds >= item.price) {
-                    user.diamonds -= item.price;
+                if (confirm(`Xóa ${friendName} khỏi danh sách bạn bè?`)) {
+                    const user = accounts[currentUser];
+                    user.friends = user.friends.filter(f => f !== friendName);
                     
-                    switch(item.type) {
-                        case 'exp':
-                            user.exp += item.value;
-                            alert(`✨ +${item.value} EXP`);
-                            break;
-                        case 'diamonds':
-                            user.diamonds += item.value;
-                            alert(`💎 +${item.value} Kim cương`);
-                            break;
-                        case 'stars':
-                            user.stars = (user.stars || 0) + item.value;
-                            alert(`⭐ +${item.value} Sao`);
-                            break;
-                        case 'boost':
-                            user.streak += item.value;
-                            alert(`⚡ Boost +${item.value} streak!`);
-                            break;
-                        case 'purplefire':
-                            user.purpleFire = true;
-                            user.inventory.push('purplefire');
-                            fireIcon.classList.add('purple');
-                            alert('🔥 Đã mở khóa LỬA TÍM vĩnh viễn');
-                            break;
-                        case 'superPurplefire':
-                            user.superPurpleFire = true;
-                            user.inventory.push('superPurplefire');
-                            fireIcon.classList.add('purple');
-                            fireIcon.style.filter = 'drop-shadow(0 0 30px #ff00ff)';
-                            alert('🔥🔥 Đã mở khóa SIÊU LỬA TÍM vĩnh viễn');
-                            break;
-                        case 'time':
-                            user.streak = Math.max(0, user.streak - 1);
-                            alert('⏰ Đã quay lại 1 ngày!');
-                            break;
-                        case 'heart_unlimited':
-                            user.inventory.push('heart_unlimited');
-                            alert('❤️ Bây giờ bạn có thể thả tim không giới hạn!');
-                            break;
-                        case 'super_heart':
-                            sendAutoMessageToAllFriends('💖 Gửi mọi người siêu tim!');
-                            alert('💖 Đã gửi siêu tim đến tất cả bạn bè!');
-                            break;
-                        case 'random':
-                            const randomExp = Math.floor(Math.random() * 100) + 50;
-                            const randomDiamonds = Math.floor(Math.random() * 50) + 20;
-                            const randomStars = Math.floor(Math.random() * 10) + 1;
-                            user.exp += randomExp;
-                            user.diamonds += randomDiamonds;
-                            user.stars = (user.stars || 0) + randomStars;
-                            alert(`🎲 Nhận được: ${randomExp} EXP, ${randomDiamonds} 💎 và ${randomStars} ⭐`);
-                            break;
-                        default:
-                            user.inventory.push(item.id);
-                            alert(`✅ Mua thành công: ${item.name}`);
+                    if (accounts[friendName]) {
+                        accounts[friendName].friends = accounts[friendName].friends.filter(f => f !== currentUser);
                     }
                     
                     localStorage.setItem('accounts', JSON.stringify(accounts));
-                    updateUI();
-                    renderShop();
-                } else {
-                    alert('❌ Không đủ kim cương!');
+                    
+                    renderFriendLeaderboard();
+                    updateFriendList();
                 }
             };
 
-            // Gửi tin nhắn đến tất cả bạn bè
-            function sendAutoMessageToAllFriends(message) {
-                const user = accounts[currentUser];
-                const time = getCurrentTime();
-                
-                user.friends.forEach(friend => {
-                    if (!user.chats) user.chats = {};
-                    if (!user.chats[friend]) user.chats[friend] = [];
-                    
-                    user.chats[friend].push({
-                        sender: currentUser,
-                        message: message,
-                        time: time,
-                        type: 'system',
-                        hearts: []
-                    });
-                    
-                    if (accounts[friend]) {
-                        if (!accounts[friend].chats) accounts[friend].chats = {};
-                        if (!accounts[friend].chats[currentUser]) accounts[friend].chats[currentUser] = [];
-                        
-                        accounts[friend].chats[currentUser].push({
-                            sender: currentUser,
-                            message: message,
-                            time: time,
-                            type: 'system',
-                            hearts: []
-                        });
-                    }
-                });
-                
-                localStorage.setItem('accounts', JSON.stringify(accounts));
-            }
-
-            // RENDER TASKS
-            function renderTasks(user) {
-                const tasks = [
-                    { key: 'toan', name: 'Toán', emoji: '🧮' },
-                    { key: 'van', name: 'Văn', emoji: '📖' },
-                    { key: 'anh', name: 'Anh', emoji: '🇬🇧' },
-                    { key: 'khtn', name: 'KHTN', emoji: '🔬' }
-                ];
-
-                let html = '';
-                tasks.forEach(t => {
-                    const isDone = user.subjects[t.key];
-                    html += `
-                        <div class="task ${isDone ? 'done' : ''}" data-key="${t.key}">
-                            <div class="task-left">
-                                <span class="check">${isDone ? '✓' : ''}</span>
-                                <span style="font-size: 22px;">${t.emoji} ${t.name}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                taskList.innerHTML = html;
-
-                document.querySelectorAll('.task').forEach(task => {
-                    task.addEventListener('click', function() {
-                        if (!currentUser) return;
-                        
-                        const key = this.dataset.key;
-                        const user = accounts[currentUser];
-                        
-                        user.subjects[key] = !user.subjects[key];
-                        if (user.subjects[key]) {
-                            user.stats.totalTasks++;
-                        }
-                        
-                        checkAndUpdateStreak(user);
-                        updateUI();
-                    });
-                });
-            }
-
-            // KIỂM TRA STREAK
-            function checkAndUpdateStreak(user) {
-                const today = new Date().toDateString();
-                
-                if (user.lastDate !== today) {
-                    if (!(user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn)) {
-                        // Reset streak nếu không hoàn thành đủ
-                        user.stats.totalStreak += user.streak; // Lưu tổng streak
-                        user.streak = 0;
-                    }
-                    user.subjects = { toan: false, van: false, anh: false, khtn: false };
-                    user.todayCompleted = false;
-                    user.lastDate = today;
-                }
-
-                const allDone = user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn;
-                
-                if (allDone && !user.todayCompleted) {
-                    user.streak += 1;
-                    if (user.streak > user.stats.highestStreak) {
-                        user.stats.highestStreak = user.streak;
-                    }
-                    user.todayCompleted = true;
-                    
-                    // Phần thưởng cơ bản
-                    user.exp += 10;
-                    user.diamonds += 5;
-                    user.stars = (user.stars || 0) + 1;
-                    
-                    // Kiểm tra quà theo streak
-                    streakRewards.forEach(reward => {
-                        if (user.streak === reward.day) {
-                            user.exp += reward.exp;
-                            user.diamonds += reward.diamonds;
-                            user.stars = (user.stars || 0) + (reward.stars || 0);
-                            
-                            if (reward.special === 'purplefire') {
-                                user.purpleFire = true;
-                                fireIcon.classList.add('purple');
-                            }
-                            if (reward.special === 'superPurplefire') {
-                                user.superPurpleFire = true;
-                                fireIcon.classList.add('purple');
-                                fireIcon.style.filter = 'drop-shadow(0 0 30px #ff00ff)';
-                            }
-                            
-                            // Gửi thông báo cho bạn bè
-                            user.friends.forEach(friend => {
-                                sendAutoMessage(friend, `🎉 Mình vừa đạt mốc ${reward.day} ngày! Nhận được ${reward.name}!`);
-                            });
-                            
-                            alert(`🎉 ĐẠT MỐC ${reward.day} NGÀY!\nNhận: ${reward.exp} EXP + ${reward.diamonds} 💎 + ${reward.stars || 0} ⭐`);
-                        }
-                    });
-                    
-                    localStorage.setItem('accounts', JSON.stringify(accounts));
-                }
-            }
-
-            // UPDATE UI
             function updateUI() {
                 if (!currentUser) return;
                 
                 const user = accounts[currentUser];
-                const currentRank = getRank(user.exp);
+                const buffs = calculateBuffs(user);
+                const days = getDaysUntilReset();
+                const rank = getRank(user.exp);
                 
-                streakNum.textContent = user.streak;
-                diamondNum.textContent = user.diamonds;
-                expNum.textContent = user.exp;
+                daysUntilReset.textContent = days;
+                resetDays.textContent = days;
+                streakNum.textContent = user.streak || 0;
+                diamondNum.textContent = user.diamonds || 0;
+                expNum.textContent = user.exp || 0;
                 starNum.textContent = user.stars || 0;
+                cupNum.textContent = user.cups?.length || 0;
                 
-                // Hiệu ứng lửa tím
-                if (user.superPurpleFire) {
-                    fireIcon.classList.add('purple');
-                    fireIcon.style.filter = 'drop-shadow(0 0 30px #ff00ff)';
-                } else if (user.purpleFire || user.streak >= 50) {
-                    fireIcon.classList.add('purple');
-                    fireIcon.style.filter = 'drop-shadow(0 0 20px #9d4eff)';
-                } else {
-                    fireIcon.classList.remove('purple');
-                    fireIcon.style.filter = 'drop-shadow(0 0 20px #ff8c42)';
-                }
+                rankName.textContent = rank.name;
                 
-                // Rank
-                rankName.textContent = currentRank.name;
-                
-                // EXP bar
                 const nextExp = getNextRankExp(user.exp);
-                const prevExp = currentRank.minExp;
-                const expNeeded = nextExp - prevExp;
-                const expCurrent = user.exp - prevExp;
-                const percent = Math.min(100, (expCurrent / expNeeded) * 100);
+                expDisplay.textContent = `${user.exp || 0}/${nextExp} EXP`;
                 
-                expDisplay.textContent = `${user.exp}/${nextExp} EXP`;
+                const prevExp = rank.minExp;
+                const expNeeded = nextExp - prevExp;
+                const expCurrent = (user.exp || 0) - prevExp;
+                const percent = Math.min(100, (expCurrent / expNeeded) * 100);
                 expBar.style.width = percent + '%';
                 
-                // Highlight subject
-                subjectItems.forEach(item => {
-                    const subj = item.dataset.subj;
-                    if (user.subjects[subj]) {
-                        item.classList.add('done');
-                    } else {
-                        item.classList.remove('done');
+                // Buff bar
+                let buffHtml = '';
+                if (buffs.exp > 1) buffHtml += `<div class="buff-item active">✨ x${buffs.exp.toFixed(1)}</div>`;
+                if (buffs.diamond > 1) buffHtml += `<div class="buff-item active">💎 x${buffs.diamond.toFixed(1)}</div>`;
+                if (buffs.luck) buffHtml += `<div class="buff-item active">🍀 May mắn</div>`;
+                if (user.buffs?.rebirth) buffHtml += `<div class="buff-item active">♻️ Hồi sinh</div>`;
+                buffBar.innerHTML = buffHtml || '<div class="buff-item">Không buff</div>';
+                
+                // Current pet
+                if (user.equippedPet) {
+                    const pet = [...NORMAL_PETS, ...MYTHICAL_PETS].find(p => p.id === user.equippedPet);
+                    if (pet) {
+                        currentPetDisplay.innerHTML = `
+                            <div style="text-align: center;">
+                                <div style="font-size: 48px; animation: petFloat 2s infinite;">${pet.emoji}</div>
+                                <div style="font-weight: 700;">${pet.name}</div>
+                                <div style="font-size: 12px;">${pet.description || ''}</div>
+                            </div>
+                        `;
                     }
-                });
+                } else {
+                    currentPetDisplay.innerHTML = '<div style="text-align: center; color: #b0c0ff;">Trang bị pet để nhận buff</div>';
+                }
                 
-                // Hiển thị quà streak
-                const achieved = streakRewards.filter(r => r.day <= user.streak).pop();
-                const nextReward = streakRewards.find(r => r.day > user.streak);
-                
+                // Milestone
+                const achieved = streakRewards.filter(r => r.day <= (user.streak || 0)).pop();
                 if (achieved) {
                     milestoneBox.innerHTML = `
                         <div class="gift">
@@ -2435,55 +2138,23 @@
                                 <span>💎 +${achieved.diamonds}</span>
                                 <span>⭐ +${achieved.stars || 0}</span>
                             </div>
-                            ${nextReward ? `<div style="margin-top: 10px; font-size: 14px;">🔜 Mốc tiếp: ${nextReward.day} ngày</div>` : ''}
                         </div>
                     `;
                 } else {
-                    milestoneBox.innerHTML = `<div class="locked">🔒 Đạt 2 ngày để nhận quà đầu tiên</div>`;
+                    milestoneBox.innerHTML = '<div class="locked">🔒 Đạt 2 ngày để nhận quà</div>';
                 }
                 
-                // Warning
-                const allDone = user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn;
-                if (!allDone) {
-                    warningMsg.innerHTML = `⚠️ Hoàn thành đủ 4 môn hôm nay để +1 streak`;
-                } else {
-                    warningMsg.innerHTML = `✅ ĐÃ ĐỦ 4 MÔN! Ngày mai +1 streak`;
-                }
-                
-                renderTasks(user);
+                renderSubjects();
+                renderFriendLeaderboard();
+                updateFriendList();
             }
 
-            // AUTO CHECK
+            // Auto update
             setInterval(() => {
                 if (currentUser) {
-                    const user = accounts[currentUser];
-                    const today = new Date().toDateString();
-                    
-                    if (user.lastDate !== today) {
-                        if (!(user.subjects.toan && user.subjects.van && user.subjects.anh && user.subjects.khtn)) {
-                            user.stats.totalStreak += user.streak;
-                            user.streak = 0;
-                        }
-                        user.subjects = { toan: false, van: false, anh: false, khtn: false };
-                        user.todayCompleted = false;
-                        user.lastDate = today;
-                        
-                        localStorage.setItem('accounts', JSON.stringify(accounts));
-                    }
-                    
                     updateUI();
-                    if (currentChat) {
-                        loadMessages();
-                    }
                 }
             }, 1000);
-
-            // Enter để gửi tin nhắn
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    sendMessage();
-                }
-            });
         })();
     </script>
 </body>
